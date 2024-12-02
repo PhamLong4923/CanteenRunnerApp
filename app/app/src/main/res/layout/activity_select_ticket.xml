@@ -1,0 +1,82 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#E9E9E9">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Các loại giá vé"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:paddingBottom="16dp" />
+
+    <!-- Ticket Price List -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Example Ticket Price (Repeated Dynamically) -->
+            <Button
+                android:id="@+id/btn_ticket_25000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="25000"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp"
+                android:padding="12dp"
+                android:layout_margin="4dp"
+                android:elevation="4dp"
+                android:shape="rectangle"
+                android:strokeColor="#000000"
+                android:cornerRadius="12dp" />
+
+            <Button
+                android:id="@+id/btn_ticket_30000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="30000"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp"
+                android:padding="12dp"
+                android:layout_margin="4dp"
+                android:elevation="4dp"
+                android:shape="rectangle"
+                android:strokeColor="#000000"
+                android:cornerRadius="12dp" />
+
+            <Button
+                android:id="@+id/btn_ticket_35000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="35000"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp"
+                android:padding="12dp"
+                android:layout_margin="4dp"
+                android:elevation="4dp"
+                android:shape="rectangle"
+                android:strokeColor="#000000"
+                android:cornerRadius="12dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
