@@ -1,0 +1,95 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#E6E6E6"
+    android:gravity="center">
+
+    <!-- Title -->
+
+    <!-- Số vé và Món ăn -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"
+        android:weightSum="2">
+
+        <!-- Số vé -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_ticket_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số vé"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tv_ticket_number"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/white"
+                android:text="3"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <!-- Món ăn -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_food_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Món ăn"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingBottom="8dp" />
+
+            <ImageView
+                android:id="@+id/iv_food_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Thời gian dự kiến -->
+    <TextView
+        android:id="@+id/tv_estimated_time_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thời gian dự kiến"
+        android:textSize="36sp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tv_estimated_time"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:text="< 5 phút"
+        android:textSize="36sp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:background="@color/white"
+        android:padding="8dp" />
+</LinearLayout>
