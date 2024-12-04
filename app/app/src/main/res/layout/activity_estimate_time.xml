@@ -86,7 +86,7 @@
         android:id="@+id/tv_estimated_time"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:text="< 5 phút"
+        android:text="&lt; 5 phút"
         android:textSize="36sp"
         android:gravity="center"
         android:textColor="@color/black"
