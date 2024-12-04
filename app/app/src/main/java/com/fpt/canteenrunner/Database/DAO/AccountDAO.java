@@ -13,4 +13,10 @@ public interface AccountDAO {
 
     @Query("SELECT * FROM Account WHERE Username = :username AND Password = :password")
     AccountEntity login(String username, String password);
+
+    @Query("SELECT * FROM Account WHERE PhoneNumber = :PhoneNumber")
+    AccountEntity CheckPhoneNumber(String PhoneNumber);
+
+    @Query("SELECT * FROM Account WHERE Email = :Email")
+    AccountEntity CheckEmail(String Email);
 }
