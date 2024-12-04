@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:shape="rectangle"
-            android:cornerRadius="12dp"
+
             android:text="Thanh toán ngân hàng"
             android:textColor="@color/black"
             android:strokeColor="#000000"
