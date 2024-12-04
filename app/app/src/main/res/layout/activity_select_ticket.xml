@@ -42,7 +42,7 @@
                 android:elevation="4dp"
                 android:shape="rectangle"
                 android:strokeColor="#000000"
-                android:cornerRadius="12dp" />
+                 />
 
             <Button
                 android:id="@+id/btn_ticket_30000"
@@ -58,7 +58,7 @@
                 android:elevation="4dp"
                 android:shape="rectangle"
                 android:strokeColor="#000000"
-                android:cornerRadius="12dp" />
+                />
 
             <Button
                 android:id="@+id/btn_ticket_35000"
@@ -74,7 +74,7 @@
                 android:elevation="4dp"
                 android:shape="rectangle"
                 android:strokeColor="#000000"
-                android:cornerRadius="12dp" />
+                 />
 
         </LinearLayout>
     </ScrollView>
