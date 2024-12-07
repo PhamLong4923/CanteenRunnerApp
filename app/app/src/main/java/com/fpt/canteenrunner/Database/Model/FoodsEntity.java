@@ -15,10 +15,8 @@ public class FoodsEntity {
     @PrimaryKey
     @NonNull
     public String FoodID;
-
     public String Name;
     public String Description;
-    public double Price;
     public String CategoryID;
     public String CanteenID;
     public String ImageURL;
