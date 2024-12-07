@@ -21,6 +21,19 @@
             android:name=".Canteen.HomeActivity"
             android:exported="true" />
         <activity
+
+            android:name=".changepasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OTPActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".Canteen.ACT7_Canteen_Selected"
             android:exported="true" />
         <activity
