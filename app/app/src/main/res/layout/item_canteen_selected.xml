@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Category Title -->
+    <TextView
+        android:id="@+id/categoryTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Món nước"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- GridLayout for Food Items -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="3"
+        android:orientation="horizontal"
+        android:columnStretchable="true"
+        android:rowStretchable="true"
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Humberger"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:layout_gravity="center_horizontal|bottom"
+            android:paddingTop="0dp"/>
+
+        <!-- Food Item 1 -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:gravity="center">
+
+
+            <!-- Food Image -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/food_image"
+                android:contentDescription="Food Image"/>
+
+            <!-- Price Badge -->
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="30K"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/round_red_background"
+                android:layout_gravity="top|end"
+                android:padding="4dp"
+                android:layout_margin="8dp"/>
+
+            <!-- Food Name -->
+
+
+        </FrameLayout>
+
+        <!-- More food items (repeat the FrameLayout structure for each food item) -->
+
+    </GridLayout>
+</LinearLayout>

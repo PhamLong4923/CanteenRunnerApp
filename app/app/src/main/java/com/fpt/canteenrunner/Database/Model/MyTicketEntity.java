@@ -1,6 +1,7 @@
 package com.fpt.canteenrunner.Database.Model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -22,4 +23,6 @@ public class MyTicketEntity {
     public double Price;
     public String PaymentType;
     public String Status;
+    @Nullable
+    public String QrCode;
 }
