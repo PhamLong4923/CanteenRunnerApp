@@ -12,7 +12,6 @@ public class TicketEntity {
     @PrimaryKey
     @NonNull
     public String TicketID;
-
     public double TicketPrice;
     public String CanteenID;
 }
