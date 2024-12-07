@@ -118,4 +118,20 @@ public class AccountEntity implements Serializable {
     public void setFingerPrintEnabled(boolean fingerPrintEnabled) {
         IsFingerPrintEnabled = fingerPrintEnabled;
     }
+
+    @Override
+    public String toString() {
+        return "AccountEntity{" +
+                "AccountID='" + AccountID + '\'' +
+                ", Username='" + Username + '\'' +
+                ", Password='" + Password + '\'' +
+                ", Email='" + Email + '\'' +
+                ", PhoneNumber='" + PhoneNumber + '\'' +
+                ", Score=" + Score +
+                ", Role='" + Role + '\'' +
+                ", CreatedDate='" + CreatedDate + '\'' +
+                ", IsFingerPrintEnabled=" + IsFingerPrintEnabled +
+                ", FingerPrintData='" + FingerPrintData + '\'' +
+                '}';
+    }
 }

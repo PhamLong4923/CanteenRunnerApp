@@ -21,8 +21,7 @@
         android:columnCount="2"
         android:rowCount="3"
         android:orientation="horizontal"
-        android:columnStretchable="true"
-        android:rowStretchable="true"
+
         android:layout_gravity="center"
         >
 
