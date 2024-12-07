@@ -1,8 +1,12 @@
 package com.fpt.canteenrunner.Database;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+
 import android.content.Context;
 import com.fpt.canteenrunner.Database.DAO.AccountDAO;
 import com.fpt.canteenrunner.Database.DAO.CanteenDAO;
@@ -34,6 +38,7 @@ public abstract class CanteenRunnerDatabase extends RoomDatabase {
     public abstract MyTicketDAO myTicketDAO();
     public abstract CategoriesDAO categoriesDAO();
     public abstract FoodPricesDAO foodPricesDAO();
+
 
     // Singleton pattern
     public static synchronized CanteenRunnerDatabase getInstance(Context context) {
