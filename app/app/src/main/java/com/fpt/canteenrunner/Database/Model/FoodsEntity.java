@@ -20,5 +20,5 @@ public class FoodsEntity {
     public String CategoryID;
     public String CanteenID;
     public String ImageURL;
-    public String Update;
+    public String UpdateDate;
 }
