@@ -2,7 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"
@@ -15,10 +24,23 @@
         android:theme="@style/Theme.CanteenRunner"
         tools:targetApi="31">
         <activity
+
+            android:name=".changepasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OTPActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+
             android:name=".Canteen.ACT7_Canteen_Selected"
             android:exported="false" />
         <activity
             android:name=".Canteen.ACT6_Canteens"
+
             android:exported="true" />
         <activity
             android:name=".MyTicketActivity"
