@@ -59,7 +59,7 @@ public abstract class CanteenRunnerDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             // Chèn dữ liệu mẫu
-            db.execSQL("INSERT INTO AccountEntity (AccountID, Username, Password, Email, PhoneNumber, Score, Role, CreatedDate, IsFingerPrintEnabled, FingerPrintData) VALUES " +
+            db.execSQL("INSERT INTO Account (AccountID, Username, Password, Email, PhoneNumber, Score, Role, CreatedDate, IsFingerPrintEnabled, FingerPrintData) VALUES " +
                     "(1, 'mra', 'password', 'mra@example.com', '0123456789', 100.0, 'User', '2024-01-01', 0, NULL), " +
                     "(2, 'mrb', 'password', 'mrb@example.com', '0987654321', 100.0, 'User', '2024-01-01', 0, NULL), " +
                     "(3, 'hanoipho', 'password', 'hanoipho@example.com', '0962171802', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
@@ -68,13 +68,13 @@ public abstract class CanteenRunnerDatabase extends RoomDatabase {
                     "(6, 'fastfood', 'password', 'fastfood@example.com', '0962172196', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
                     "(7, 'admin', 'password', 'admin@example.com', '0962719574', 2000.0, 'Admin', '2023-01-02', 1, 'SampleFingerData1');");
 
-            db.execSQL("INSERT INTO CanteenEntity (CanteenID, CanteenName, AccountID) VALUES " +
+            db.execSQL("INSERT INTO Canteen (CanteenID, CanteenName, AccountID) VALUES " +
                     "(1, 'Hà Nội Phố', 3), " +
                     "(2, 'Quang Anh Canteen', 4), " +
                     "(3, 'Sendo', 5), " +
                     "(4, 'Fastfood', 6);");
 
-            db.execSQL("INSERT INTO CategoriesEntity (CategoryID, Name, Description) VALUES " +
+            db.execSQL("INSERT INTO Categories (CategoryID, Name, Description) VALUES " +
                     "(1, 'Cơm', 'Thức ăn phổ biến, miễn phí rau'), " +
                     "(2, 'Xôi', 'Gạo nếp dẻo dai'), " +
                     "(3, 'Đồ ăn nước', 'Thức ăn bơi trong nước, hệt như bạn giữa deadline'), " +
@@ -82,7 +82,7 @@ public abstract class CanteenRunnerDatabase extends RoomDatabase {
                     "(5, 'Nước giải khát', 'Thức uống giải khát'), " +
                     "(6, 'Khác', 'Thực phẩm khác');");
 
-            db.execSQL("INSERT INTO FoodsEntity (FoodID, Name, Description, CategoryID, CanteenID, ImageURL, UpdateDate) VALUES " +
+            db.execSQL("INSERT INTO Foods (FoodID, Name, Description, CategoryID, CanteenID, ImageURL, UpdateDate) VALUES " +
                     "(1, 'Nước lọc', 'Quên chai nước ở nhà? mua nước đi e', 5, 2, 'food_image', '2024-01-01'), " +
                     "(2, 'Nước lọc', 'Canh ăn chán quá nên phải mua nước', 5, 3, 'food_image', '2024-01-01'), " +
                     "(3, 'Trà xanh TeaPlus', 'Không nên uống nước ngọt khi đang ăn cơm', 5, 2, 'food_image', '2024-01-01'), " +
@@ -102,7 +102,7 @@ public abstract class CanteenRunnerDatabase extends RoomDatabase {
                     "(17, 'Cơm', 'Cơm dở canh ngon', 1, 2, 'food_image', '2024-01-01'), " +
                     "(18, 'Cơm', 'Cơm ngon canh là nước muối pha????', 1, 3, 'food_image', '2024-01-01');");
 
-            db.execSQL("INSERT INTO FoodPricesEntity (PriceID, FoodID, Price) VALUES " +
+            db.execSQL("INSERT INTO FoodPrices (PriceID, FoodID, Price) VALUES " +
                     "(1, 1, 5000), " +
                     "(2, 2, 5000), " +
                     "(3, 3, 10000), " +
@@ -128,13 +128,13 @@ public abstract class CanteenRunnerDatabase extends RoomDatabase {
                     "(23, 17, 45000), " +
                     "(24, 18, 45000);");
 
-            db.execSQL("INSERT INTO TicketEntity (TicketID, TicketPrice, CanteenID) VALUES " +
+            db.execSQL("INSERT INTO Ticket (TicketID, TicketPrice, CanteenID) VALUES " +
                     "(1, 35000, 1), " +
                     "(2, 35000, 2), " +
                     "(3, 40000, 1), " +
                     "(4, 40000, 2);");
 
-            db.execSQL("INSERT INTO MyTicketEntity (MyTicketID, AccountID, TicketID, OrderDate, Price, PaymentType, Status, QrCode) VALUES " +
+            db.execSQL("INSERT INTO MyTicket (MyTicketID, AccountID, TicketID, OrderDate, Price, PaymentType, Status, QrCode) VALUES " +
                     "(1, 1, 1, '2024-01-05', 35000, 'Credit Card', 'Paid', 'SampleQRCode1'), " +
                     "(2, 2, 2, '2024-01-05', 40000, 'Cash', 'Pending', NULL), " +
                     "(3, 1, 1, '2024-01-05', 35000, 'Credit Card', 'Paid', 'SampleQRCode1'), " +
