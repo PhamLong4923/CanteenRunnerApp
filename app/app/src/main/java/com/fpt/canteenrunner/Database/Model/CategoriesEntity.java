@@ -12,4 +12,38 @@ public class CategoriesEntity {
 
     public String Name;
     public String Description;
+
+    public CategoriesEntity() {
+    }
+
+    public CategoriesEntity(@NonNull String categoryID, String name, String description) {
+        CategoryID = categoryID;
+        Name = name;
+        Description = description;
+    }
+
+    @NonNull
+    public String getCategoryID() {
+        return CategoryID;
+    }
+
+    public void setCategoryID(@NonNull String categoryID) {
+        CategoryID = categoryID;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
 }

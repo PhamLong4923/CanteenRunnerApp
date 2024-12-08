@@ -14,4 +14,38 @@ public class TicketEntity {
     public String TicketID;
     public double TicketPrice;
     public String CanteenID;
+
+    public TicketEntity() {
+    }
+
+    public TicketEntity(@NonNull String ticketID, double ticketPrice, String canteenID) {
+        TicketID = ticketID;
+        TicketPrice = ticketPrice;
+        CanteenID = canteenID;
+    }
+
+    @NonNull
+    public String getTicketID() {
+        return TicketID;
+    }
+
+    public void setTicketID(@NonNull String ticketID) {
+        TicketID = ticketID;
+    }
+
+    public double getTicketPrice() {
+        return TicketPrice;
+    }
+
+    public void setTicketPrice(double ticketPrice) {
+        TicketPrice = ticketPrice;
+    }
+
+    public String getCanteenID() {
+        return CanteenID;
+    }
+
+    public void setCanteenID(String canteenID) {
+        CanteenID = canteenID;
+    }
 }

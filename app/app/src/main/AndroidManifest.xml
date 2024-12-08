@@ -35,8 +35,6 @@
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-
-            android:name=".Canteen.ACT7_Canteen_Selected"
             android:exported="false" />
         <activity
             android:name=".Canteen.ACT6_Canteens"
@@ -57,6 +55,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activity.Payment.ActivitySelectTicket"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.Payment.ActivityPayment"
+            android:exported="true" />
     </application>
 
 </manifest>

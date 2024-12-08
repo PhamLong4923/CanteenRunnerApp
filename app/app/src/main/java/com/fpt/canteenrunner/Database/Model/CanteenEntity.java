@@ -15,4 +15,38 @@ public class CanteenEntity {
 
     public String CanteenName;
     public String AccountID;
+
+    @NonNull
+    public String getCanteenID() {
+        return CanteenID;
+    }
+
+    public CanteenEntity() {
+    }
+
+    public CanteenEntity(String canteenName, @NonNull String canteenID, String accountID) {
+        CanteenName = canteenName;
+        CanteenID = canteenID;
+        AccountID = accountID;
+    }
+
+    public void setCanteenID(@NonNull String canteenID) {
+        CanteenID = canteenID;
+    }
+
+    public String getCanteenName() {
+        return CanteenName;
+    }
+
+    public void setCanteenName(String canteenName) {
+        CanteenName = canteenName;
+    }
+
+    public String getAccountID() {
+        return AccountID;
+    }
+
+    public void setAccountID(String accountID) {
+        AccountID = accountID;
+    }
 }

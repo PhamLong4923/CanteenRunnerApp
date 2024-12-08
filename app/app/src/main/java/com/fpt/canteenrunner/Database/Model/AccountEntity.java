@@ -1,6 +1,7 @@
 package com.fpt.canteenrunner.Database.Model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -20,6 +21,7 @@ public class AccountEntity implements Serializable {
     public String Role;
     public String CreatedDate;
     public boolean IsFingerPrintEnabled;
+    @Nullable
     public String FingerPrintData;
 
     public AccountEntity() {

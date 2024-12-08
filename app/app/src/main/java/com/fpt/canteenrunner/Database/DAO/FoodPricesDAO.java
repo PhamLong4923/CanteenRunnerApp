@@ -16,4 +16,5 @@ public interface FoodPricesDAO {
 
     @Query("SELECT * FROM FoodPrices WHERE FoodID = :foodId")
     List<FoodPricesEntity> getPricesByFood(String foodId);
+
 }
