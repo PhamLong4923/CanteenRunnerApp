@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Toast;  // Thêm import Toast
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -61,6 +61,7 @@ public class ActivityPayment extends AppCompatActivity {
 
         // Xử lý nút kiểm tra thanh toán
         btnCheckPayment.setOnClickListener(v -> {
+            // Hiển thị Toast khi bắt đầu kiểm tra thanh toán
             Toast.makeText(ActivityPayment.this, "Đang kiểm tra thanh toán...", Toast.LENGTH_SHORT).show();
             // Giả sử bạn có thông tin ticketId từ dữ liệu
             String ticketId = "your_ticket_id"; // Thay thế với ticketId thực tế
@@ -76,17 +77,21 @@ public class ActivityPayment extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     String status = response.body().getStatus();
                     if ("Success".equalsIgnoreCase(status)) {
+                        // Hiển thị thông báo thanh toán thành công
                         Toast.makeText(ActivityPayment.this, "Trạng thái: Đã thanh toán", Toast.LENGTH_SHORT).show();
                     } else {
+                        // Hiển thị thông báo thanh toán chưa thành công
                         Toast.makeText(ActivityPayment.this, "Trạng thái: Chưa thanh toán", Toast.LENGTH_SHORT).show();
                     }
                 } else {
+                    // Hiển thị thông báo lỗi kiểm tra thanh toán
                     Toast.makeText(ActivityPayment.this, "Trạng thái: Lỗi kiểm tra thanh toán", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<PaymentStatusResponse> call, Throwable t) {
+                // Hiển thị thông báo lỗi kết nối tới máy chủ
                 Toast.makeText(ActivityPayment.this, "Trạng thái: Không thể kết nối tới máy chủ", Toast.LENGTH_SHORT).show();
             }
         });
