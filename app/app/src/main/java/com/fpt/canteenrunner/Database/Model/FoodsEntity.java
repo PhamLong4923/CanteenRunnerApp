@@ -12,9 +12,9 @@ import java.util.Date;
         @ForeignKey(entity = CategoriesEntity.class, parentColumns = "CategoryID", childColumns = "CategoryID")
 })
 public class FoodsEntity {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
-    public String FoodID;
+    public Integer FoodID;
     public String Name;
     public String Description;
     public String CategoryID;
@@ -25,7 +25,7 @@ public class FoodsEntity {
     public FoodsEntity() {
     }
 
-    public FoodsEntity(@NonNull String foodID,
+    public FoodsEntity(@NonNull Integer foodID,
                        String name,
                        String description,
                        String categoryID,
@@ -42,11 +42,11 @@ public class FoodsEntity {
     }
 
     @NonNull
-    public String getFoodID() {
+    public Integer getFoodID() {
         return FoodID;
     }
 
-    public void setFoodID(@NonNull String foodID) {
+    public void setFoodID(@NonNull Integer foodID) {
         FoodID = foodID;
     }
 

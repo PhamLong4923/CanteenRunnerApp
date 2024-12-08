@@ -57,7 +57,7 @@ public class MyTicketActivity extends AppCompatActivity {
                 TicketEntity ticketEntity = db.ticketDAO().getTicketById(ticket.getTicketID());
                 String price = String.valueOf(ticketEntity.getTicketPrice());
                 MyTicketDTO dto = new MyTicketDTO(
-                        ticket.getMyTicketID(),
+                        ticket.getTicketID(),
                         ticket.getOrderDate(),
                         price
                 );

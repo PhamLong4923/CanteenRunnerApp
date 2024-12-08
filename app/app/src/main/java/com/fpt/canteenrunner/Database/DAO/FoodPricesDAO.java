@@ -14,7 +14,11 @@ public interface FoodPricesDAO {
     @Insert
     void insertPrice(FoodPricesEntity price);
 
+
     @Query("SELECT * FROM FoodPrices WHERE FoodID = :foodId")
     List<FoodPricesEntity> getPricesByFood(String foodId);
+
+    @Query("SELECT * FROM FoodPrices WHERE FoodID = :foodId")
+    FoodPricesEntity getPricesByFood1(String foodId);
 
 }
