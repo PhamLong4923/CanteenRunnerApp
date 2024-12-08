@@ -17,4 +17,7 @@ public interface CanteenDAO {
 
     @Query("SELECT * FROM Canteen ")
     List<CanteenEntity> getAllCanteens();
+
+    @Query("SELECT CanteenName FROM Canteen WHERE CanteenID = :canteenID")
+    String getCanteenNameById(String canteenID);
 }

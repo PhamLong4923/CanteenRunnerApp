@@ -18,4 +18,7 @@ public interface CategoriesDAO {
 
     @Query("SELECT * FROM Categories")
     List<CategoriesEntity> getAllCategories();
+
+    @Query("SELECT Name FROM Categories WHERE CategoryID = :categoryId")
+    String getCategoryNameById(String categoryId);
 }
