@@ -48,4 +48,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    // Thêm phụ thuộc BCrypt
+    implementation("org.mindrot:jbcrypt:0.4")
+    //jwt
+    implementation("com.auth0:java-jwt:3.18.2")
+    // zxing
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+
 }

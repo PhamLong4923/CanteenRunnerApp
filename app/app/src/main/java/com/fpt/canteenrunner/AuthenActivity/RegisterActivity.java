@@ -1,9 +1,10 @@
-package com.fpt.canteenrunner;
+package com.fpt.canteenrunner.AuthenActivity;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Looper;
 import android.telephony.SmsManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,11 +21,16 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
 import com.fpt.canteenrunner.Database.Model.AccountEntity;
+import com.fpt.canteenrunner.R;
 import com.fpt.canteenrunner.Utils.SendOtp;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -73,6 +79,23 @@ public class RegisterActivity extends AppCompatActivity {
         if (!isInputValid(fullName, phoneNumber, email, password, rePassword)) {
             return;
         }
+        new Thread(() -> {
+            CanteenRunnerDatabase db = CanteenRunnerDatabase.getInstance(RegisterActivity.this);
+            if (db.accountDAO().CheckPhoneNumber(phoneNumber) != null) {
+                runOnUiThread(() -> {
+                    showToast("Số điện thoại đã được đăng ký!");
+                });
+                return;
+            }
+            if (db.accountDAO().CheckEmail(email) != null) {
+                runOnUiThread(() -> {
+                    showToast("Email đã được đăng ký!");
+                });
+                return;
+            }
+        }).start();
+
+        String Hashpassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
         String accountID = UUID.randomUUID().toString();
         AccountEntity account = new AccountEntity();
@@ -80,25 +103,16 @@ public class RegisterActivity extends AppCompatActivity {
         account.setUsername(fullName);
         account.setPhoneNumber(phoneNumber);
         account.setEmail(email);
-        account.setPassword(password);
+        account.setPassword(Hashpassword);
         account.setRole("User");
         account.setScore(0);
         account.setCreatedDate(new Date().toString());
         account.setFingerPrintEnabled(false);
         account.setFingerPrintData("");
 
-        new Thread(() -> {
-            CanteenRunnerDatabase db = CanteenRunnerDatabase.getInstance(RegisterActivity.this);
-            db.accountDAO().insertAccount(account);
-            runOnUiThread(() -> {
-                otp = SendOtp.generateOTP();
-                requestSmsPermissionAndSendOTP(phoneNumber, otp);
-                showToast("Đăng ký thành công!");
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            });
-        }).start();
+        user = account;
+        otp = SendOtp.generateOTP();
+        requestSmsPermissionAndSendOTP(phoneNumber, otp);
 
     }
 
@@ -181,6 +195,13 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
     private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        // Kiểm tra nếu đang ở trên UI thread
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        } else {
+            // Nếu không phải UI thread, gọi runOnUiThread để chuyển về UI thread
+            runOnUiThread(() -> Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show());
+        }
     }
+
 }
