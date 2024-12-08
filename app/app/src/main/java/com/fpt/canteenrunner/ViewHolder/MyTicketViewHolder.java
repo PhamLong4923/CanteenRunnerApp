@@ -1,5 +1,6 @@
 package com.fpt.canteenrunner.ViewHolder;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fpt.canteenrunner.DTO.MyTicketDTO;
 import com.fpt.canteenrunner.R;
+import com.fpt.canteenrunner.TicketDetailActivity;
 
 public class MyTicketViewHolder extends RecyclerView.ViewHolder {
    private TextView tvCode, tvDate, tvPrice;
@@ -24,6 +26,9 @@ public class MyTicketViewHolder extends RecyclerView.ViewHolder {
 
     private void onItemClick(View view) {
         Toast.makeText(itemView.getContext(), tvCode.getText(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(itemView.getContext(), TicketDetailActivity.class);
+        intent.putExtra("ticketCode", tvCode.getText());
+        itemView.getContext().startActivity(intent);
     }
 
     private void bindingView() {
