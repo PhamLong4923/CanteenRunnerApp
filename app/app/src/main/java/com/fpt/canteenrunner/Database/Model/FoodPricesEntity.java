@@ -17,4 +17,36 @@ public class FoodPricesEntity {
 
     public String FoodID; // Foreign key to FoodsEntity
     public double Price; // Price of the food
+
+    public FoodPricesEntity() {
+    }
+    public FoodPricesEntity(@NonNull String priceID, String foodID, double price) {
+        PriceID = priceID;
+        FoodID = foodID;
+        Price = price;
+    }
+    @NonNull
+    public String getPriceID() {
+        return PriceID;
+    }
+
+    public void setPriceID(@NonNull String priceID) {
+        PriceID = priceID;
+    }
+
+    public String getFoodID() {
+        return FoodID;
+    }
+
+    public void setFoodID(String foodID) {
+        FoodID = foodID;
+    }
+
+    public double getPrice() {
+        return Price;
+    }
+
+    public void setPrice(double price) {
+        Price = price;
+    }
 }

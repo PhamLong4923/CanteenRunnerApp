@@ -29,7 +29,14 @@ public class MyTicketEntity {
     public MyTicketEntity() {
     }
 
-    public MyTicketEntity(@NonNull String myTicketID, String accountID, String ticketID, String orderDate, double price, String paymentType, String status, @Nullable String qrCode) {
+    public MyTicketEntity(@NonNull String myTicketID,
+                          String accountID,
+                          String ticketID,
+                          String orderDate,
+                          double price,
+                          String paymentType,
+                          String status,
+                          @Nullable String qrCode) {
         MyTicketID = myTicketID;
         AccountID = accountID;
         TicketID = ticketID;
