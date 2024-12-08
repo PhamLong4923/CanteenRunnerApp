@@ -17,4 +17,7 @@ public interface FoodsDAO {
 
     @Query("SELECT * FROM Foods ORDER BY FoodID DESC LIMIT 1")
     FoodsEntity getLastInsertedFoodID();
+
+    @Query("select * from Foods where FoodID = :foodId")
+    FoodsEntity getFoodById(String foodId);
 }

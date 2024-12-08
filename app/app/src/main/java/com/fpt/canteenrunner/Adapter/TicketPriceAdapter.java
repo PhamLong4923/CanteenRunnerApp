@@ -34,7 +34,7 @@ public class TicketPriceAdapter extends RecyclerView.Adapter<TicketPriceAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FoodPricesEntity price = prices.get(position);
-        holder.btnPrice.setText(String.valueOf(price.getPrice()));
+        holder.btnPrice.setText(String.format("%d", (int) price.getPrice()));
         holder.btnPrice.setOnClickListener(v -> listener.onPriceSelected(price));
     }
 
