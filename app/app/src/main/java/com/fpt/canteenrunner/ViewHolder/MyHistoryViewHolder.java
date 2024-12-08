@@ -29,8 +29,15 @@ public class MyHistoryViewHolder extends RecyclerView.ViewHolder {
     public void setMyHistoryDTO(MyHistoryDTO myHistoryDTO) {
         code.setText(myHistoryDTO.getTiketCode());
         date.setText(myHistoryDTO.getBuyDate());
-        status.setText(myHistoryDTO.getStatus() ? "Đã dùng" : "Chưa dùng");
-
+        if (myHistoryDTO.getStatus()) {
+            status.setText("Đã dùng");
+            status.setTextColor(itemView.getContext().getResources()
+                    .getColor(R.color.darkGreen,null)); // Màu xanh cho "Đã dùng"
+        } else {
+            status.setText("Chưa dùng");
+            status.setTextColor(itemView.getContext().getResources()
+                    .getColor(R.color.red, null));   // Màu đỏ cho "Chưa dùng"
+        }
 
     }
 }
