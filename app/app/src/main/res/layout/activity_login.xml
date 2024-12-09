@@ -6,7 +6,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    android:background="@color/white"
+    tools:context=".AuthenActivity.LoginActivity">
 
     <!-- Main layout for the login screen -->
     <LinearLayout
@@ -40,8 +41,6 @@
             android:layout_marginRight="20dp"
             android:drawablePadding="15dp"
             android:hint="Tài khoản"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
             android:textColor="@color/black" />
 
         <!-- Password input field -->

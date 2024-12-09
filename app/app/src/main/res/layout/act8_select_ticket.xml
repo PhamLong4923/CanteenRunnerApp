@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="#E9E9E9">
+
+    <!-- Include header -->
+    <include
+        layout="@layout/header"
+        android:layout_width="match_parent"
+        tools:ignore="IncludeLayoutParam"/>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chọn giá vé"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="16dp" />
+
+    <!-- List of Ticket Prices -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_ticket_prices"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

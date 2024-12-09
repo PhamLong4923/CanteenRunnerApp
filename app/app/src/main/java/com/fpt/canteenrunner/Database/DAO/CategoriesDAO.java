@@ -5,6 +5,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import com.fpt.canteenrunner.Database.Model.CategoriesEntity;
 
+import java.util.List;
+
 @Dao
 public interface CategoriesDAO {
 
@@ -13,4 +15,10 @@ public interface CategoriesDAO {
 
     @Query("SELECT * FROM Categories WHERE CategoryID = :categoryId")
     CategoriesEntity getCategoryById(String categoryId);
+
+    @Query("SELECT * FROM Categories")
+    List<CategoriesEntity> getAllCategories();
+
+    @Query("SELECT Name FROM Categories WHERE CategoryID = :categoryId")
+    String getCategoryNameById(String categoryId);
 }

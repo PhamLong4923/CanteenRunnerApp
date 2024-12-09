@@ -11,10 +11,42 @@ import java.util.Date;
         @ForeignKey(entity = FoodsEntity.class, parentColumns = "FoodID", childColumns = "FoodID")
 })
 public class FoodPricesEntity {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
-    public String PriceID; // Unique ID for the price entry
+    public Integer PriceID; // Unique ID for the price entry
 
     public String FoodID; // Foreign key to FoodsEntity
     public double Price; // Price of the food
+
+    public FoodPricesEntity() {
+    }
+    public FoodPricesEntity(@NonNull Integer priceID, String foodID, double price) {
+        PriceID = priceID;
+        FoodID = foodID;
+        Price = price;
+    }
+    @NonNull
+    public Integer getPriceID() {
+        return PriceID;
+    }
+
+    public void setPriceID(@NonNull Integer priceID) {
+        PriceID = priceID;
+    }
+
+    public String getFoodID() {
+        return FoodID;
+    }
+
+    public void setFoodID(String foodID) {
+        FoodID = foodID;
+    }
+
+    public double getPrice() {
+        return Price;
+    }
+
+    public void setPrice(double price) {
+        Price = price;
+    }
 }

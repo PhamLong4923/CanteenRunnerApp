@@ -1,6 +1,7 @@
 package com.fpt.canteenrunner.Database.Model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -20,6 +21,7 @@ public class AccountEntity implements Serializable {
     public String Role;
     public String CreatedDate;
     public boolean IsFingerPrintEnabled;
+    @Nullable
     public String FingerPrintData;
 
     public AccountEntity() {
@@ -117,5 +119,21 @@ public class AccountEntity implements Serializable {
 
     public void setFingerPrintEnabled(boolean fingerPrintEnabled) {
         IsFingerPrintEnabled = fingerPrintEnabled;
+    }
+
+    @Override
+    public String toString() {
+        return "AccountEntity{" +
+                "AccountID='" + AccountID + '\'' +
+                ", Username='" + Username + '\'' +
+                ", Password='" + Password + '\'' +
+                ", Email='" + Email + '\'' +
+                ", PhoneNumber='" + PhoneNumber + '\'' +
+                ", Score=" + Score +
+                ", Role='" + Role + '\'' +
+                ", CreatedDate='" + CreatedDate + '\'' +
+                ", IsFingerPrintEnabled=" + IsFingerPrintEnabled +
+                ", FingerPrintData='" + FingerPrintData + '\'' +
+                '}';
     }
 }

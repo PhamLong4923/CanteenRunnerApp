@@ -40,13 +40,19 @@ dependencies {
     implementation(libs.room.common)
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
-
     // Glide dependencies
-    implementation(libs.glide)
-    annotationProcessor(libs.glide.compiler)
-
+//    implementation(libs.glide)
+//    annotationProcessor(libs.glide.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.circleimageview)
+    implementation ("com.github.bumptech.glide:glide:4.14.2")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
+    implementation("org.mindrot:jbcrypt:0.4")
+    implementation("com.auth0:java-jwt:3.18.2")
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
 }

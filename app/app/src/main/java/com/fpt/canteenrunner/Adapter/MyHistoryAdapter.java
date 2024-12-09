@@ -31,6 +31,7 @@ public class MyHistoryAdapter extends RecyclerView.Adapter<MyHistoryViewHolder> 
     public void onBindViewHolder(@NonNull MyHistoryViewHolder holder, int position) {
         MyHistoryDTO myHistoryDTO = data.get(position);
         holder.setMyHistoryDTO(myHistoryDTO);
+
     }
 
     @Override

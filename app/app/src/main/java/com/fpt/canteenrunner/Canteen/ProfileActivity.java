@@ -1,6 +1,8 @@
 package com.fpt.canteenrunner.Canteen;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.fpt.canteenrunner.AuthenActivity.ResetPasswordActivity;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
 import com.fpt.canteenrunner.Database.DAO.AccountDAO;
 import com.fpt.canteenrunner.Database.Model.AccountEntity;
@@ -21,8 +24,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ProfileActivity extends AppCompatActivity {
-
-    //private SessionManager sessionManager;
     private TextView fullname, phoneNum, email, point;
     private Button  btnChangePassword;
     private AccountDAO accountDAO;
@@ -39,31 +40,11 @@ public class ProfileActivity extends AppCompatActivity {
         btnChangePassword = findViewById(R.id.id_ChangePassword);
         accountDAO = CanteenRunnerDatabase.getInstance(this).accountDAO();
         executorService = Executors.newSingleThreadExecutor();
-        /*
-        sessionManager = new SessionManager(this);
-
-        // Check if user is logged in
-        if (!sessionManager.isLoggedIn()) {
-            Toast.makeText(this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, AuthenticationActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            // Retrieve user details from session and display
-            User user = sessionManager.getUser();
-            if (user != null) {
-                fullname.setText(user.getFullName());
-                phoneNum.setText(user.getPhoneNumber());
-                email.setText(user.getEmail());
-            }
-        }
-
-         */
-        String email_user = getIntent().getStringExtra("email");
-        String password = getIntent().getStringExtra("password");
-        System.out.println("Email + Pass " + email_user + " " + password);
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String email_user = preferences.getString("email", null);
+        System.out.println("Email bên Profile nè: " + email_user);
         executorService.execute(() -> {
-            AccountEntity accountEntity = accountDAO.login(email_user,password);
+            AccountEntity accountEntity = accountDAO.login(email_user);
             runOnUiThread(() -> {
                 if (accountEntity != null) {
                     point =  findViewById(R.id.ed_bonus_point);
@@ -80,12 +61,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         btnChangePassword.setOnClickListener(v -> {
             executorService.execute(() -> {
-                AccountEntity accountEntity = accountDAO.login(email_user, password);
+                AccountEntity accountEntity = accountDAO.login(email_user);
                 runOnUiThread(() -> {
                     if (accountEntity != null) {
-                        Intent intent = new Intent(ProfileActivity.this, changepasswordActivity.class);
-                        intent.putExtra("email", accountEntity.getEmail());
-                        intent.putExtra("password", accountEntity.getPassword());
+                        Intent intent = new Intent(ProfileActivity.this, ResetPasswordActivity.class);
+                        intent.putExtra("user", accountEntity); // Truyền AccountEntity qua Intent
                         startActivity(intent);
                     }
                 });
