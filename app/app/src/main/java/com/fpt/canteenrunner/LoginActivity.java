@@ -12,6 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.fpt.canteenrunner.Canteen.ProfileActivity;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
 import com.fpt.canteenrunner.Database.DAO.AccountDAO;
 import com.fpt.canteenrunner.Database.Model.AccountEntity;
@@ -69,9 +70,12 @@ public class LoginActivity extends AppCompatActivity {
         }
         executorService.execute(() -> {
             AccountEntity accountEntity = accountDAO.login(email, password);
-
             runOnUiThread(() -> {
                 if (accountEntity != null) {
+                    Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                    intent.putExtra("email", accountEntity.getUsername());
+                    intent.putExtra("password", accountEntity.getPassword());
+                    startActivity(intent);
                     Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();

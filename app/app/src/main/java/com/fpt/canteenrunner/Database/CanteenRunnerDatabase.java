@@ -21,7 +21,7 @@ import com.fpt.canteenrunner.Database.Model.CategoriesEntity;
 
 @Database(entities = {AccountEntity.class, CanteenEntity.class, FoodsEntity.class,
         TicketEntity.class, MyTicketEntity.class, CategoriesEntity.class, FoodPricesEntity.class},
-        version = 2, exportSchema = false)
+        version = 3, exportSchema = false)
 public abstract class CanteenRunnerDatabase extends RoomDatabase {
 
     private static volatile CanteenRunnerDatabase instance;

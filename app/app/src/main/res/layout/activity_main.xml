@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <!-- App Bar -->
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
@@ -16,7 +17,8 @@
         app:tabSelectedTextColor="@android:color/white"
         app:tabTextColor="@android:color/black"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="4dp">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_featured"
