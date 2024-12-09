@@ -15,7 +15,7 @@ public interface MyTicketDAO {
     @Query("SELECT * FROM MyTicket WHERE AccountID = :accountId")
     List<MyTicketEntity> getMyTicketsByAccount(String accountId);
 
-    @Query("SELECT * FROM MyTicket JOIN Ticket ON MyTicket.TicketID = Ticket.TicketID WHERE AccountID = :accountId")
+    @Query("SELECT * FROM MyTicket JOIN Ticket ON MyTicket.TicketID = Ticket.TicketID WHERE AccountID = :accountId AND Status = 'Pending'")
     List<MyTicketEntity> getMyTicketsWithTicketByAccount(String accountId);
 
     @Query("SELECT * FROM MyTicket WHERE TicketID = :ticketId LIMIT 1")
