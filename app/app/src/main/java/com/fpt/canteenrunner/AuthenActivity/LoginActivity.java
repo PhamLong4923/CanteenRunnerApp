@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fpt.canteenrunner.Canteen.ProfileActivity;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
 import com.fpt.canteenrunner.Database.DAO.AccountDAO;
 import com.fpt.canteenrunner.Database.Model.AccountEntity;
@@ -92,8 +93,11 @@ public class LoginActivity extends AppCompatActivity {
                     if (BCrypt.checkpw(password, accountEntity.getPassword())) {
                         // Mật khẩu đúng
                         String token = generateJWT(accountEntity);
-                        saveToken(token);
+                        saveToken(token,accountEntity);
                         Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                        startActivity(intent);
+                        finish();
                     } else {
                         // Mật khẩu sai
                         Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
@@ -121,11 +125,13 @@ public class LoginActivity extends AppCompatActivity {
         return token;
     }
 
-    private void saveToken(String token) {
+    private void saveToken(String token,AccountEntity accountEntity) {
         // Lưu JWT vào SharedPreferences
         SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("jwt_token", token);
+        editor.putString("email", accountEntity.getEmail());
+        System.out.println("Bên Login save Email : " + accountEntity.getEmail());
         editor.apply();
     }
 }
