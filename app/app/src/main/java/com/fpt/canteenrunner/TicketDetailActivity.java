@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
+import com.fpt.canteenrunner.Database.Model.CanteenEntity;
 import com.fpt.canteenrunner.Database.Model.MyTicketEntity;
+import com.fpt.canteenrunner.Database.Model.TicketEntity;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -27,6 +30,7 @@ import java.util.concurrent.Executors;
 public class TicketDetailActivity extends AppCompatActivity {
     private ImageView backBtn;
     private ImageView ivQrcode;
+    private TextView tvCanten, tvPrice, tvOrderDate;
     private ExecutorService executorService;
     private CanteenRunnerDatabase db;
     private String qrStringCode;
@@ -47,8 +51,14 @@ public class TicketDetailActivity extends AppCompatActivity {
         if (ticketId != null) {
             executorService.execute(() -> {
                 MyTicketEntity qrCode = db.myTicketDAO().getMyTicketByTicketId(ticketId);
+                TicketEntity ticket = db.ticketDAO().getTicketById(ticketId);
+                String canteenName = db.canteenDAO().getCanteenNameById(ticket.getCanteenID());
+                String Price = String.valueOf(qrCode.getPrice()) ;
                 runOnUiThread(() -> {
-                    qrStringCode = qrCode.getQrCode();
+                    tvCanten.setText(canteenName);
+                    tvPrice.setText(Price);
+                    tvOrderDate.setText(qrCode.getOrderDate());
+                    qrStringCode = qrCode.getQrCode()+" | "+qrCode.getPrice()+" | "+qrCode.getOrderDate()+" | "+canteenName;
                     generateQRCode(qrStringCode);
                 });
             });
@@ -85,6 +95,9 @@ public class TicketDetailActivity extends AppCompatActivity {
         ivQrcode = findViewById(R.id.iv_qrcode);
         executorService = Executors.newSingleThreadExecutor();
         db = CanteenRunnerDatabase.getInstance(getApplicationContext());
+        tvCanten = findViewById(R.id.tvCanten);
+        tvPrice = findViewById(R.id.tvPrice);
+        tvOrderDate = findViewById(R.id.tvOrderDate);
     }
 
     private void bindingAction() {

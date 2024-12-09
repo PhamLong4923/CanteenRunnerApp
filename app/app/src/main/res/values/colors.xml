@@ -8,6 +8,11 @@
     <color name="lightGreen">#9493DE97</color>
     <color name="darkGreen">#FF4CAF50</color>
     <color name="red">#FFC10758</color>
+    <style name="textBold">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">15sp</item>
 
+    </style>
 
 </resources>

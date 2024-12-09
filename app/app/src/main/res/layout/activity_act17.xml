@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main1"
+    android:background="#A9DED6D6"
     android:orientation="vertical"
     tools:context=".ACT17Activity">
 
@@ -40,8 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:ems="10"
+        android:hint="Image URL"
         android:inputType="text"
-        android:hint="Image URL" />
+        android:minHeight="48dp" />
 
     <LinearLayout
         android:id="@+id/form_layout"
