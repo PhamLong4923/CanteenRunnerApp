@@ -17,7 +17,7 @@ public class AccountEntity implements Serializable {
     public String Password;
     public String Email;
     public String PhoneNumber;
-    public double Score;
+    public int Score;
     public String Role;
     public String CreatedDate;
     public boolean IsFingerPrintEnabled;
@@ -27,7 +27,7 @@ public class AccountEntity implements Serializable {
     public AccountEntity() {
     }
 
-    public AccountEntity(@NonNull String accountID, String username, String password, String email, String phoneNumber, double score, String role, String createdDate, boolean isFingerPrintEnabled, String fingerPrintData) {
+    public AccountEntity(@NonNull String accountID, String username, String password, String email, String phoneNumber, int score, String role, String createdDate, boolean isFingerPrintEnabled, String fingerPrintData) {
         AccountID = accountID;
         Username = username;
         Password = password;
@@ -93,7 +93,7 @@ public class AccountEntity implements Serializable {
         return Score;
     }
 
-    public void setScore(double score) {
+    public void setScore(int score) {
         Score = score;
     }
 
