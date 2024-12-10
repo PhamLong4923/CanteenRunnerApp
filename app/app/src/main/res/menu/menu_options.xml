@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/option_order"
-        android:title="Order Food"/>
-    <item
-        android:id="@+id/option_favorites"
-        android:title="My Favorites"/>
-    <item
         android:id="@+id/option_settings"
         android:title="Settings"/>
+    <item
+        android:id="@+id/option_canteen"
+        android:title="Canteen"/>
 </menu>

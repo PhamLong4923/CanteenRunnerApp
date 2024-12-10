@@ -80,7 +80,6 @@ public class ACT16Activity extends AppCompatActivity implements FoodAdapter.OnFo
                         food.getName(),
                         price,
                         food.getCategoryID()
-
                 );
                 foodList.add(dto);
             }
