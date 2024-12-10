@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.fpt.canteenrunner.Adapter.FoodAdapter;
+import com.fpt.canteenrunner.Adapter.FoodAdapterP;
 import com.fpt.canteenrunner.Canteen.ACT6_Canteens;
 import com.fpt.canteenrunner.Canteen.ProfileActivity;
 import com.fpt.canteenrunner.DTO.FoodDTO;
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         for (FoodsEntity entity : foodsEntities) {
             FoodPricesEntity foodPrices = foodPricesDAO.getPricesByFood1(String.valueOf(entity.getFoodID()));
             double price = foodPrices.getPrice();
-            FoodDTO dto = new FoodDTO(entity.getImageURL(), entity.getName(), String.valueOf(price), String.valueOf(entity.getCategoryID()));
+            FoodDTO dto = new FoodDTO(entity.getFoodID().toString() ,entity.getImageURL(), entity.getName(), String.valueOf(price), String.valueOf(entity.getCategoryID()));
             foodDTOs.add(dto);
         }
         return foodDTOs;
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayFoods(List<FoodDTO> foods) {
         RecyclerView recyclerView = findViewById(R.id.foodList);
-        FoodAdapter adapter = new FoodAdapter(foods);
+        FoodAdapterP adapter = new FoodAdapterP(foods);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
     }
