@@ -21,8 +21,12 @@
         android:theme="@style/Theme.CanteenRunner"
         tools:targetApi="31">
         <activity
+            android:name=".Header.HeaderActivity"
+            android:exported="true" />
+<activity
             android:name=".ACT17dActivity"
             android:exported="false" />
+
         <activity
             android:name=".Canteen.ProfileActivity"
             android:exported="true" />

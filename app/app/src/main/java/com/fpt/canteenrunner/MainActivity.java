@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fpt.canteenrunner.Adapter.FoodAdapter;
+import com.fpt.canteenrunner.Canteen.ACT6_Canteens;
 import com.fpt.canteenrunner.Canteen.ProfileActivity;
 import com.fpt.canteenrunner.DTO.FoodDTO;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
@@ -30,7 +31,7 @@ import com.fpt.canteenrunner.Database.DAO.FoodsDAO;
 import com.fpt.canteenrunner.Database.Model.CategoriesEntity;
 import com.fpt.canteenrunner.Database.Model.FoodPricesEntity;
 import com.fpt.canteenrunner.Database.Model.FoodsEntity;
-import com.fpt.canteenrunner.Header.HeaderFragment;
+import com.fpt.canteenrunner.Header.HeaderActivity;
 import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +54,20 @@ public class MainActivity extends AppCompatActivity {
             PopupMenu popupMenu = new PopupMenu(this, btnMenu);
             MenuInflater inflater = popupMenu.getMenuInflater();
             inflater.inflate(R.menu.menu_options, popupMenu.getMenu());
+
+            popupMenu.setOnMenuItemClickListener(item -> {
+                int id = item.getItemId();
+                if (id == R.id.option_settings) {
+                    Toast.makeText(MainActivity.this, "Settings selected", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.option_canteen) {
+                    Intent intent = new Intent(MainActivity.this, ACT6_Canteens.class);
+                    startActivity(intent);
+                }
+                return true;
+            });
             popupMenu.show();
         });
+
         tabLayout = findViewById(R.id.tabLayout);
         categoryDAO = CanteenRunnerDatabase.getInstance(this).categoriesDAO();
         foodsDAO = CanteenRunnerDatabase.getInstance(this).foodsDAO();
