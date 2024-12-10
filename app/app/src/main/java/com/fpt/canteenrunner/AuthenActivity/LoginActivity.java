@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fpt.canteenrunner.Canteen.ACT12Seller_Home;
 import com.fpt.canteenrunner.Canteen.ProfileActivity;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
 import com.fpt.canteenrunner.Database.DAO.AccountDAO;
@@ -97,9 +98,9 @@ public class LoginActivity extends AppCompatActivity {
                         saveToken(token,accountEntity);
                         Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
                         if(accountEntity.getRole().equalsIgnoreCase("Seller")){
-//                            Intent intent = new Intent(LoginActivity.this, ACT12Seller_Home.class);
-//                            startActivity(intent);
-//                            finish();
+                            Intent intent = new Intent(LoginActivity.this, ACT12Seller_Home.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);

@@ -15,11 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.fpt.canteenrunner.AuthenActivity.LoginActivity;
+import com.fpt.canteenrunner.Canteen.ProfileActivity;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
 import com.fpt.canteenrunner.Database.DAO.MyTicketDAO;
 import com.fpt.canteenrunner.Database.DAO.TicketDAO;
 import com.fpt.canteenrunner.Database.Model.MyTicketEntity;
 import com.fpt.canteenrunner.Database.Model.TicketEntity;
+import com.fpt.canteenrunner.MainActivity;
+import com.fpt.canteenrunner.MyHistoryActivity;
+import com.fpt.canteenrunner.MyTicketActivity;
 import com.fpt.canteenrunner.Network.api.CreateOrder;
 import com.fpt.canteenrunner.R;
 
@@ -125,6 +129,14 @@ public class ActivityPaymentMethod extends AppCompatActivity {
                 }
             });
         });
+        ImageView ivAvatar = findViewById(R.id.iv_avatar);
+        ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityPaymentMethod.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     // Hàm xử lý khi thanh toán thành công
@@ -136,7 +148,7 @@ public class ActivityPaymentMethod extends AppCompatActivity {
         String myTicketId = "MyTicket_" + transactionId;
         String orderDate = new Date().toString();
         String paymentType = "Credit Card";
-        String status = "Paid";
+        String status = "Pending";
 
         MyTicketEntity myTicketEntity = new MyTicketEntity(
                 myTicketId,
@@ -167,6 +179,8 @@ public class ActivityPaymentMethod extends AppCompatActivity {
             e.printStackTrace();
             Log.e("TaskError", "Error waiting for tasks", e);
         }
+        Intent intent = new Intent(ActivityPaymentMethod.this, MyHistoryActivity.class);
+        startActivity(intent);
     }
 
 
@@ -191,6 +205,7 @@ public class ActivityPaymentMethod extends AppCompatActivity {
         if (email_user == null){
             Intent intent = new Intent(ActivityPaymentMethod.this, LoginActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 }
