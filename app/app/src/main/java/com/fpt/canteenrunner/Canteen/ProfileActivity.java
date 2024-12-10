@@ -17,6 +17,8 @@ import com.fpt.canteenrunner.AuthenActivity.ResetPasswordActivity;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
 import com.fpt.canteenrunner.Database.DAO.AccountDAO;
 import com.fpt.canteenrunner.Database.Model.AccountEntity;
+import com.fpt.canteenrunner.MyHistoryActivity;
+import com.fpt.canteenrunner.MyTicketActivity;
 import com.fpt.canteenrunner.R;
 import com.fpt.canteenrunner.changepasswordActivity;
 
@@ -25,7 +27,7 @@ import java.util.concurrent.Executors;
 
 public class ProfileActivity extends AppCompatActivity {
     private TextView fullname, phoneNum, email, point;
-    private Button  btnChangePassword;
+    private Button  btnChangePassword,btnMyTicket, btnMyPresentTicket;
     private AccountDAO accountDAO;
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -38,6 +40,8 @@ public class ProfileActivity extends AppCompatActivity {
         phoneNum = findViewById(R.id.tvPhone);
         email = findViewById(R.id.tvEmail);
         btnChangePassword = findViewById(R.id.id_ChangePassword);
+        btnMyTicket = findViewById(R.id.id_MyTicket2);
+        btnMyPresentTicket =findViewById(R.id.id_MyTicket3);
         accountDAO = CanteenRunnerDatabase.getInstance(this).accountDAO();
         executorService = Executors.newSingleThreadExecutor();
         SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -66,6 +70,32 @@ public class ProfileActivity extends AppCompatActivity {
                     if (accountEntity != null) {
                         Intent intent = new Intent(ProfileActivity.this, ResetPasswordActivity.class);
                         intent.putExtra("user", accountEntity); // Truyền AccountEntity qua Intent
+                        startActivity(intent);
+                    }
+                });
+            });
+        });
+
+        btnMyTicket.setOnClickListener(v -> {
+            executorService.execute(() -> {
+                AccountEntity accountEntity = accountDAO.login(email_user);
+                runOnUiThread(() -> {
+                    if (accountEntity != null) {
+                        Intent intent = new Intent(ProfileActivity.this, MyHistoryActivity.class);
+                        intent.putExtra("user", accountEntity);
+                        startActivity(intent);
+                    }
+                });
+            });
+        });
+
+        btnMyPresentTicket.setOnClickListener(v -> {
+            executorService.execute(() -> {
+                AccountEntity accountEntity = accountDAO.login(email_user);
+                runOnUiThread(() -> {
+                    if (accountEntity != null) {
+                        Intent intent = new Intent(ProfileActivity.this, MyTicketActivity.class);
+                        intent.putExtra("user", accountEntity);
                         startActivity(intent);
                     }
                 });

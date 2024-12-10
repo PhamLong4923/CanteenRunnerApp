@@ -1,34 +1,86 @@
 package com.fpt.canteenrunner.Canteen;
 
+import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fpt.canteenrunner.Adapter.CanteenAdapter;
+import com.fpt.canteenrunner.Adapter.MyTicketAdapter;
 import com.fpt.canteenrunner.DTO.CanteenDTO;
-import com.fpt.canteenrunner.DTO.MyHistoryDTO;
+import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
+import com.fpt.canteenrunner.Database.DAO.CanteenDAO;
+import com.fpt.canteenrunner.Database.Model.CanteenEntity;
 import com.fpt.canteenrunner.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ACT6_Canteens extends AppCompatActivity {
+
+    private CanteenRunnerDatabase db;
+    private ExecutorService executorService;
+    private RecyclerView recyclerView;
+    private List<CanteenDTO> canteenList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act6_canteens);
 
-        // Sample data
-        List<CanteenDTO> canteenList = new ArrayList<>();
-        canteenList.add(new CanteenDTO("Canteen 1", "https://i.pinimg.com/736x/9c/32/21/9c3221b49038bd8c64947fc84db35a18--interior-design-offices-marble-counters.jpg", "1"));
-        canteenList.add(new CanteenDTO("Canteen 2", "https://giathicong.com/wp-content/uploads/2023/05/thiet-ke-can-tin-2.jpg", "2"));
-        canteenList.add(new CanteenDTO("Canteen 3", "https://th.bing.com/th/id/OIP.4dvMrEru9swHApwRoNFD1gHaEK?rs=1&pid=ImgDetMain", "3"));
 
-        // Set up RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.rvCanteens);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new CanteenAdapter(canteenList));
+
+        bindingView();
+        bindingAction();
+
+        initRecyclerView();
+
+
+
+//
+    }
+
+    private void bindingAction() {
+
+    }
+
+    private void openCanteenSelectedActivity(String canteenId) {
+        Intent intent = new Intent(this, ACT7_Canteen_Selected.class);
+        intent.putExtra("canteen_id", canteenId);
+        startActivity(intent);
+    }
+    private void bindingView(){
+
+        recyclerView = findViewById(R.id.rvCanteens);
+
+        executorService = Executors.newSingleThreadExecutor();
+        db = CanteenRunnerDatabase.getInstance(getApplicationContext());
+    }
+
+    private void initRecyclerView(){
+
+        executorService.execute(() -> {
+            // Sample data
+            List<CanteenEntity> canteenEntityList = db.canteenDAO().getAllCanteens(); // Assuming this is already fetched
+
+
+            for (CanteenEntity entity : canteenEntityList) {
+                CanteenDTO dto = new CanteenDTO(entity.getCanteenName(), entity.getImage(), entity.getCanteenID());
+                canteenList.add(dto);
+            }
+            runOnUiThread(() -> {
+                CanteenAdapter adapter = new CanteenAdapter(canteenList);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+            });
+        });
+
     }
 }

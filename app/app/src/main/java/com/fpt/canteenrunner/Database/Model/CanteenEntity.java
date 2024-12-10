@@ -15,6 +15,7 @@ public class CanteenEntity {
 
     public String CanteenName;
     public String AccountID;
+    public String Image;
 
     @NonNull
     public String getCanteenID() {
@@ -24,10 +25,11 @@ public class CanteenEntity {
     public CanteenEntity() {
     }
 
-    public CanteenEntity(String canteenName, @NonNull String canteenID, String accountID) {
-        CanteenName = canteenName;
+    public CanteenEntity(@NonNull String canteenID, String canteenName, String accountID, String image) {
         CanteenID = canteenID;
+        CanteenName = canteenName;
         AccountID = accountID;
+        Image = image;
     }
 
     public void setCanteenID(@NonNull String canteenID) {
@@ -48,5 +50,13 @@ public class CanteenEntity {
 
     public void setAccountID(String accountID) {
         AccountID = accountID;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
     }
 }

@@ -7,48 +7,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- App Bar -->
-
+    <include
+        layout="@layout/header"
+        android:layout_width="match_parent"
+        tools:ignore="IncludeLayoutParam"
+        android:layout_marginBottom="50dp"/>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp" />
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
         android:background="@color/lightGreen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorColor="@android:color/white"
         app:tabSelectedTextColor="@android:color/white"
         app:tabTextColor="@android:color/black"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="4dp">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_featured"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Món Cơm" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_deals"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Món Nước" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_categories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Đồ Uống" />
-    </com.google.android.material.tabs.TabLayout>
+        tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/foodList"
-        android:layout_width="317dp"
-        android:layout_height="635dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:clipToPadding="false"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
     <ImageButton
@@ -57,9 +47,7 @@
         android:layout_height="41dp"
         android:layout_gravity="top|start"
         android:layout_margin="16dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="17dp"
-        app:layout_constraintEnd_toStartOf="@+id/foodList"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-        app:srcCompat="@drawable/baseline_menu_24" />
+        app:srcCompat="@drawable/baseline_menu_24"
+        tools:layout_editor_absoluteX="7dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,11 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Canteen.ACT6_Canteens">
-
+    <include
+        layout="@layout/header"
+        android:layout_width="match_parent"
+        tools:ignore="IncludeLayoutParam" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCanteens"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
+android:layout_marginTop="55dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </androidx.constraintlayout.widget.ConstraintLayout>

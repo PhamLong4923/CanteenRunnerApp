@@ -25,7 +25,7 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Account Settings"
+            android:text="Thông tin người dùng"
             android:textStyle="bold"
             android:textSize="16dp"
             android:gravity="center"/>
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/lightGreen"
-                    android:text="Point"
+                    android:text="Điểm"
                     android:layout_marginRight="20dp"
                     android:textAlignment="center"
                     android:textSize="20sp"
@@ -102,7 +102,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Full Name"
+                android:text="Tên người dùng"
                 android:textStyle="bold"
                 android:textSize="18dp"
                 android:layout_marginLeft="5dp"/>
@@ -128,7 +128,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone Number"
+                android:text="Số điện thoại"
                 android:textStyle="bold"
                 android:textSize="18dp"
                 android:layout_marginLeft="5dp"/>
@@ -182,10 +182,38 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:paddingLeft="10dp"
-                android:text="Change Password"
+                android:text="Đổi mật khẩu"
                 android:textColor="@color/white"
                 android:textSize="18dp"
                 android:textStyle="bold" />
+            <Button
+                android:id="@+id/id_MyTicket3"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/lightGreen"
+                android:drawableLeft="@drawable/ic_money"
+                android:gravity="center"
+                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:text="Vé hiện tại"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/id_MyTicket2"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/lightGreen"
+                android:drawableLeft="@drawable/ic_money"
+                android:gravity="center"
+                android:padding="10dp"
+                android:paddingLeft="10dp"
+                android:text="Vé của tôi"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
     </LinearLayout>

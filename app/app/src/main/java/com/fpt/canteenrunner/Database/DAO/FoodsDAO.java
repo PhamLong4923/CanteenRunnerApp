@@ -27,4 +27,7 @@ public interface FoodsDAO {
 
     @Query("select * from Foods where FoodID = :foodId")
     FoodsEntity getFoodById(String foodId);
+
+    @Query("SELECT * FROM foods WHERE CategoryID = :cateID")
+    List<FoodsEntity> getFoodsByCategoryId(String cateID);
 }
