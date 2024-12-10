@@ -69,11 +69,11 @@ public abstract class CanteenRunnerDatabase extends RoomDatabase {
                         "(6, 'fastfood', 'password', 'fastfood@example.com', '0962172196', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
                         "(7, 'admin', 'password', 'admin@example.com', '0962719574', 2000.0, 'Admin', '2023-01-02', 1, 'SampleFingerData1');");
 
-                db.execSQL("INSERT INTO Canteen (CanteenID, CanteenName, AccountID) VALUES " +
-                        "(1, 'Hà Nội Phố', 3), " +
-                        "(2, 'Quang Anh Canteen', 4), " +
-                        "(3, 'Sendo', 5), " +
-                        "(4, 'Fastfood', 6);");
+                db.execSQL("INSERT INTO Canteen (CanteenID, CanteenName, AccountID, Image) VALUES " +
+                        "(1, 'Hà Nội Phố', 3, 'https://i.pinimg.com/736x/9c/32/21/9c3221b49038bd8c64947fc84db35a18--interior-design-offices-marble-counters.jpg'), " +
+                        "(2, 'Quang Anh Canteen', 4, 'https://giathicong.com/wp-content/uploads/2023/05/thiet-ke-can-tin-2.jpg'), " +
+                        "(3, 'Sendo', 5, 'https://th.bing.com/th/id/OIP.4dvMrEru9swHApwRoNFD1gHaEK?rs=1&pid=ImgDetMain'), " +
+                        "(4, 'Fastfood', 6, 'https://th.bing.com/th/id/OIP.4dvMrEru9swHApwRoNFD1gHaEK?rs=1&pid=ImgDetMain');");
 
                 db.execSQL("INSERT INTO Categories (CategoryID, Name, Description) VALUES " +
                         "(1, 'Cơm', 'Thức ăn phổ biến, miễn phí rau'), " +
