@@ -45,8 +45,7 @@ dependencies {
     )))
     annotationProcessor(libs.room.compiler)
     // Glide dependencies
-//    implementation(libs.glide)
-//    annotationProcessor(libs.glide.compiler)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -60,3 +59,4 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
 }
+
