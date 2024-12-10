@@ -39,6 +39,10 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.room.common)
     implementation(libs.room.runtime)
+    implementation(fileTree(mapOf(
+        "dir" to "ZaloPayLib",
+        "include" to listOf("*.aar", "*.jar")
+    )))
     annotationProcessor(libs.room.compiler)
     // Glide dependencies
 //    implementation(libs.glide)

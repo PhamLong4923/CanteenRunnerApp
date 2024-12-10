@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#E2E2E2">
+    android:background="@color/white">
 
     <!-- Title -->
     <include
@@ -19,7 +19,7 @@
         android:text="Chọn phương thức thanh toán"
         android:textSize="14sp"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="#66000000"
         android:paddingBottom="16dp" />
 
     <!-- Food Information -->
@@ -71,7 +71,26 @@
                 android:layout_height="wrap_content"
                 android:text="Giá"
                 android:textSize="16sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_category_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danh mục"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_canteen_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Căng tin"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingBottom="8dp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -80,26 +99,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mô tả món ăn"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:layout_marginLeft="16dp"
-        android:paddingBottom="8dp" />
-
-    <TextView
-        android:id="@+id/tv_category_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Danh mục"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:layout_marginLeft="16dp"
-        android:paddingBottom="8dp" />
-
-    <TextView
-        android:id="@+id/tv_canteen_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Căng tin"
         android:textSize="16sp"
         android:textColor="@color/black"
         android:layout_marginLeft="16dp"
@@ -126,11 +125,11 @@
 
 
         <Button
-            android:id="@+id/btn_pay_with_bank"
+            android:id="@+id/btn_pay_with_zalo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Thanh toán ngân hàng"
+            android:text="Thanh toán ZaloPay"
             android:textColor="@color/black"
             android:strokeColor="#000000"
             android:layout_marginStart="8dp"

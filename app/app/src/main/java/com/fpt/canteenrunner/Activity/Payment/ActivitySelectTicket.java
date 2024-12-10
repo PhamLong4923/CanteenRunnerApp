@@ -85,6 +85,7 @@ public class ActivitySelectTicket extends AppCompatActivity {
                 intent.putExtra("CanteenName", canteenName);
                 intent.putExtra("ImageURL", food.getImageURL());
                 intent.putExtra("SelectedPrice", selectedPrice.getPrice()); // Đưa giá vé được chọn vào Intent
+                intent.putExtra("CanteenID", food.getCanteenID());
                 startActivity(intent);
             });
         });
