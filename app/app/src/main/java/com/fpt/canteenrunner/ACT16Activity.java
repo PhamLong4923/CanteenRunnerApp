@@ -1,6 +1,8 @@
 package com.fpt.canteenrunner;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -33,10 +35,10 @@ public class ACT16Activity extends AppCompatActivity implements FoodAdapter.OnFo
     private List<FoodDTO> foodList = new ArrayList<>();
     private ExecutorService executorService;
     private CanteenRunnerDatabase db;
-    private String canteenID = "1";
-    private String lightCateFoodID = "1";
-    private String FoodCateID = "2";
-    private String fastFoodCateID = "3";
+    private String canteenID ;
+    private String lightCateFoodID ="3" ;
+    private String FoodCateID = "1";
+    private String fastFoodCateID = "2";
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Override
@@ -128,7 +130,12 @@ public class ACT16Activity extends AppCompatActivity implements FoodAdapter.OnFo
         backbtn = findViewById(R.id.back_btn);
         executorService = Executors.newSingleThreadExecutor();
         db = CanteenRunnerDatabase.getInstance(getApplicationContext());
-
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String email_user = preferences.getString("email", null);
+        executorService.execute(() -> {
+           String accountID = db.accountDAO().login(email_user).getAccountID();
+            canteenID = db.canteenDAO().getCanteenByAccount(accountID).getCanteenID().toString();
+        });
     }
 
     @Override

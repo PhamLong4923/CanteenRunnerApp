@@ -1,5 +1,7 @@
 package com.fpt.canteenrunner;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +35,7 @@ public class MyTicketActivity extends AppCompatActivity {
     private List<MyTicketDTO> data = new ArrayList<>();
     private ExecutorService executorService;
     private CanteenRunnerDatabase db;
-    private String accountID = "1";
+    private String accountID ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,5 +86,11 @@ public class MyTicketActivity extends AppCompatActivity {
         tiketList = findViewById(R.id.ticket_list);
         executorService = Executors.newSingleThreadExecutor();
         db = CanteenRunnerDatabase.getInstance(getApplicationContext());
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String email_user = preferences.getString("email", null);
+        executorService.execute(() -> {
+            accountID = db.accountDAO().login(email_user).getAccountID();
+        });
+
     }
 }
