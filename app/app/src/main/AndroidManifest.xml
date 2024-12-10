@@ -15,8 +15,11 @@
         android:theme="@style/Theme.CanteenRunner"
         tools:targetApi="31">
         <activity
+            android:name=".APITesting.TestapiActivity"
+            android:exported="true" />
+        <activity
             android:name=".Canteen.ACT7_Canteen_Selected"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Canteen.ACT6_Canteens"
             android:exported="true" />
