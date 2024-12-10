@@ -20,4 +20,7 @@ public interface MyTicketDAO {
 
     @Query("SELECT * FROM MyTicket WHERE TicketID = :ticketId LIMIT 1")
     MyTicketEntity getMyTicketByTicketId(String ticketId);
+
+    @Query("SELECT * FROM MyTicket WHERE TicketID = :ticketId")
+    MyTicketEntity getTicketById(String ticketId);
 }

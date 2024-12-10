@@ -26,5 +26,5 @@ public interface CanteenDAO {
     CanteenEntity getCanteenById(String canteenId);
 
     @Query("SELECT * FROM Canteen WHERE CanteenID = :canteenID limit 1")
-    FoodsEntity getCanteenByAccount(String canteenID);
+    CanteenEntity getCanteenByAccount(String canteenID);
 }
