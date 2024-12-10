@@ -26,9 +26,9 @@ public class FoodViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void bindingView() {
-        ivFood = itemView.findViewById(R.id.ivFood);
-        tvFoodName = itemView.findViewById(R.id.tvFoodName);
-        tvFoodPrice = itemView.findViewById(R.id.tvFoodPrice);
+        ivFood = itemView.findViewById(R.id.ivFoodHome);
+        tvFoodName = itemView.findViewById(R.id.tvFoodNameHome);
+        tvFoodPrice = itemView.findViewById(R.id.tvFoodPriceHome);
     }
 
     public void bind(FoodDTO food) {
@@ -40,6 +40,6 @@ public class FoodViewHolder extends RecyclerView.ViewHolder {
                 .into(ivFood);
 
         tvFoodName.setText(food.getFoodName());
-        tvFoodPrice.setText(String.valueOf(food.getPrice()));
+        tvFoodPrice.setText(String.valueOf(food.getPrice()) + "VND");
     }
 }

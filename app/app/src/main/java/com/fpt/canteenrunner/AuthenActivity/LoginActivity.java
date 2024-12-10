@@ -21,6 +21,7 @@ import com.fpt.canteenrunner.Canteen.ProfileActivity;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
 import com.fpt.canteenrunner.Database.DAO.AccountDAO;
 import com.fpt.canteenrunner.Database.Model.AccountEntity;
+import com.fpt.canteenrunner.MainActivity;
 import com.fpt.canteenrunner.R;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -95,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                         String token = generateJWT(accountEntity);
                         saveToken(token,accountEntity);
                         Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
