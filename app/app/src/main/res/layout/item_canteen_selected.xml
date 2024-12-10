@@ -22,7 +22,6 @@
         android:rowCount="3"
         android:orientation="horizontal"
 
-
         android:layout_gravity="center"
         >
 

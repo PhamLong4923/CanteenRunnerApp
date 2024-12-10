@@ -1,6 +1,7 @@
 package com.fpt.canteenrunner.DTO;
 
 public class FoodDTO {
+
     private String foodID;
     private String name;
     private String description;
@@ -31,3 +32,4 @@ public class FoodDTO {
         return price;
     }
 }
+

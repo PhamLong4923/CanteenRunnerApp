@@ -18,10 +18,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fpt.canteenrunner.Adapter.MyHistoryAdapter;
 import com.fpt.canteenrunner.DTO.MyHistoryDTO;
+import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
+import com.fpt.canteenrunner.Database.Model.MyTicketEntity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MyHistoryActivity extends AppCompatActivity {
     private ImageView backBtn;
@@ -29,7 +35,12 @@ public class MyHistoryActivity extends AppCompatActivity {
     private Button clearFilter;
     private ToggleButton toggleButton;
     private RecyclerView historyList;
-    private List<MyHistoryDTO> data= new ArrayList<>();
+    private List<MyHistoryDTO> data = new ArrayList<>();
+    private ExecutorService executorService;
+    private CanteenRunnerDatabase db;
+    private String accountID = "1";
+    private String status = "Paid";
+    SimpleDateFormat dateFormat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +51,6 @@ public class MyHistoryActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        fakeData();
         bindingView();
         bindingAction();
         initRecyclerView();
@@ -48,15 +58,7 @@ public class MyHistoryActivity extends AppCompatActivity {
 
 
 
-    private void fakeData() {
-        data.add(new MyHistoryDTO("Cơm gà", "1/12/2024", false));
-        data.add(new MyHistoryDTO("Cơm gà", "1/12/2024", true));
-        data.add(new MyHistoryDTO("Cơm gà", "12/12/2021", false));
-        data.add(new MyHistoryDTO("Cơm gà", "12/12/2021", true));
-        data.add(new MyHistoryDTO("Cơm gà", "12/12/2021", true));
-        data.add(new MyHistoryDTO("Cơm gà", "12/12/2021", true));
-        data.add(new MyHistoryDTO("Cơm gà", "12/12/2021", true));
-    }
+
     private void filterData() {
         String selectedDate = historyDate.getText().toString();
         boolean isUsed = toggleButton.isChecked();
@@ -64,6 +66,7 @@ public class MyHistoryActivity extends AppCompatActivity {
         List<MyHistoryDTO> filteredData = new ArrayList<>();
 
         for (MyHistoryDTO item : data) {
+
             boolean matchDate = selectedDate.isEmpty() || item.getBuyDate().equals(selectedDate);
             boolean matchStatus = isUsed == item.getStatus();
 
@@ -103,7 +106,9 @@ public class MyHistoryActivity extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view1, year1, month1, dayOfMonth) -> {
-            historyDate.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1);
+            String formattedDay = String.format("%02d", dayOfMonth);
+            String formattedMonth = String.format("%02d", month1 + 1);
+            historyDate.setText(formattedDay + "/" + formattedMonth + "/" + year1);
             filterData();
         }, year, month, day);
         datePickerDialog.show();
@@ -122,12 +127,47 @@ public class MyHistoryActivity extends AppCompatActivity {
         toggleButton = findViewById(R.id.toggleButton);
         historyList = findViewById(R.id.history_list);
         clearFilter = findViewById(R.id.clear_btn);
+        executorService = Executors.newSingleThreadExecutor();
+        db = CanteenRunnerDatabase.getInstance(getApplicationContext());
 
     }
     private void initRecyclerView() {
+        executorService.execute(() -> {
+            List<MyTicketEntity> listMyTicket = db.myTicketDAO().getMyTicketsByAccount(accountID);
+            List<MyHistoryDTO> loadedData = new ArrayList<>();
+
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng chuỗi nguồn
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy"); // Định dạng mong muốn
+
+            for (MyTicketEntity ticket : listMyTicket) {
+                String formattedDate = null;
+                try {
+                    if (ticket.getOrderDate() != null) {
+                        Date date = inputFormat.parse(ticket.getOrderDate());
+                        formattedDate = outputFormat.format(date);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                MyHistoryDTO historyDTO = new MyHistoryDTO(
+                        ticket.getMyTicketID(),
+                        formattedDate, // Ngày đã định dạng
+                        ticket.getStatus().equals(status)
+                );
+                loadedData.add(historyDTO);
+            }
+
+            runOnUiThread(() -> {
+                data.clear();
+                data.addAll(loadedData);
+                updateRecyclerView(data);
+            });
+        });
+
         MyHistoryAdapter adapter = new MyHistoryAdapter(data);
         historyList.setAdapter(adapter);
         historyList.setLayoutManager(new LinearLayoutManager(this));
-
     }
+
 }
