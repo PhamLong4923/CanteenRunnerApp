@@ -15,8 +15,6 @@ import java.util.List;
 
 public class ACT6_Canteens extends AppCompatActivity {
 
-    
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
