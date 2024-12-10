@@ -25,8 +25,12 @@
             android:name=".Canteen.ACT12Seller_Home"
             android:exported="false" />
         <activity
-            android:name=".Header.HeaderFragment"
+            android:name=".Header.HeaderActivity"
             android:exported="true" />
+<activity
+            android:name=".ACT17dActivity"
+            android:exported="false" />
+
         <activity
             android:name=".Canteen.ProfileActivity"
             android:exported="true" />
@@ -94,10 +98,8 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data
                     android:host="app"
                     android:scheme="demozpdk" />
@@ -110,10 +112,8 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data
                     android:host="app"
                     android:scheme="demozpdk" />

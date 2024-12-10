@@ -1,16 +1,24 @@
 package com.fpt.canteenrunner.DTO;
 
 public class FoodDTO {
+    private String FoodId;
     private String ImageURL;
     private String FoodName;
     private String Price;
     private String CateID;
 
-    public FoodDTO(String imageURL, String foodName, String price, String cateID) {
+    public FoodDTO(String foodId, String imageURL, String foodName, String price, String cateID) {
+        FoodId = foodId;
         ImageURL = imageURL;
         FoodName = foodName;
         Price = price;
         CateID = cateID;
+    }
+    public String getFoodId() {
+        return FoodId;
+    }
+    public void setFoodId(String foodId) {
+        FoodId = foodId;
     }
 
 

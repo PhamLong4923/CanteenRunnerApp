@@ -1,6 +1,8 @@
 package com.fpt.canteenrunner;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -27,16 +29,16 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ACT16Activity extends AppCompatActivity {
+public class ACT16Activity extends AppCompatActivity implements FoodAdapter.OnFoodClickListener {
     private RecyclerView rvFood, rvLightMeal, rvDrink;
     private ImageView btnAddFood, backbtn;
     private List<FoodDTO> foodList = new ArrayList<>();
     private ExecutorService executorService;
     private CanteenRunnerDatabase db;
-    private String canteenID = "1";
-    private String lightCateFoodID = "1";
-    private String FoodCateID = "2";
-    private String fastFoodCateID = "3";
+    private String canteenID ;
+    private String lightCateFoodID ="3" ;
+    private String FoodCateID = "1";
+    private String fastFoodCateID = "2";
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Override
@@ -52,7 +54,6 @@ public class ACT16Activity extends AppCompatActivity {
         bindingView();
         bindingAction();
         initRecyclerView();
-        Intent intent = new Intent(this, ACT17Activity.class);
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -76,11 +77,11 @@ public class ACT16Activity extends AppCompatActivity {
             for (FoodsEntity food : foods) {
                 String price = String.valueOf(db.foodPricesDAO().getPricesByFood1(food.getFoodID().toString()).getPrice());
                 FoodDTO dto = new FoodDTO(
+                        food.getFoodID().toString(),
                         food.getImageURL(),
                         food.getName(),
                         price,
                         food.getCategoryID()
-
                 );
                 foodList.add(dto);
             }
@@ -129,6 +130,18 @@ public class ACT16Activity extends AppCompatActivity {
         backbtn = findViewById(R.id.back_btn);
         executorService = Executors.newSingleThreadExecutor();
         db = CanteenRunnerDatabase.getInstance(getApplicationContext());
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String email_user = preferences.getString("email", null);
+        executorService.execute(() -> {
+           String accountID = db.accountDAO().login(email_user).getAccountID();
+            canteenID = db.canteenDAO().getCanteenByAccount(accountID).getCanteenID().toString();
+        });
+    }
 
+    @Override
+    public void onFoodClick(String foodId) {
+        Intent intent = new Intent(this, ACT17dActivity.class);
+        intent.putExtra("foodId", foodId);
+        activityResultLauncher.launch(intent);
     }
 }

@@ -3,6 +3,8 @@ package com.fpt.canteenrunner.Database.DAO;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
+
 import com.fpt.canteenrunner.Database.Model.FoodsEntity;
 import java.util.List;
 
@@ -11,6 +13,11 @@ public interface FoodsDAO {
 
     @Insert
     void insertFood(FoodsEntity food);
+
+    @Update
+    void updateFood(FoodsEntity food);
+    @Query("DELETE FROM Foods WHERE FoodID = :foodId")
+    void deleteFood(Integer foodId);
 
     @Query("SELECT * FROM Foods WHERE CanteenID = :canteenId")
     List<FoodsEntity> getFoodsByCanteen(String canteenId);

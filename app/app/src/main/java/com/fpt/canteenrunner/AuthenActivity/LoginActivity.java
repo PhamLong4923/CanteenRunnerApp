@@ -96,9 +96,15 @@ public class LoginActivity extends AppCompatActivity {
                         String token = generateJWT(accountEntity);
                         saveToken(token,accountEntity);
                         Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        if(accountEntity.getRole().equalsIgnoreCase("Seller")){
+//                            Intent intent = new Intent(LoginActivity.this, ACT12Seller_Home.class);
+//                            startActivity(intent);
+//                            finish();
+                        }else{
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     } else {
                         // Mật khẩu sai
                         Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
@@ -132,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("jwt_token", token);
         editor.putString("email", accountEntity.getEmail());
+        editor.putString("accountID", accountEntity.getAccountID());
         System.out.println("Bên Login save Email : " + accountEntity.getEmail());
         editor.apply();
     }

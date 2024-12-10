@@ -1,6 +1,8 @@
 package com.fpt.canteenrunner;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,7 +40,7 @@ public class MyHistoryActivity extends AppCompatActivity {
     private List<MyHistoryDTO> data = new ArrayList<>();
     private ExecutorService executorService;
     private CanteenRunnerDatabase db;
-    private String accountID = "1";
+    private String accountID ;
     private String status = "Paid";
     SimpleDateFormat dateFormat;
     @Override
@@ -129,7 +131,11 @@ public class MyHistoryActivity extends AppCompatActivity {
         clearFilter = findViewById(R.id.clear_btn);
         executorService = Executors.newSingleThreadExecutor();
         db = CanteenRunnerDatabase.getInstance(getApplicationContext());
-
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String email_user = preferences.getString("email", null);
+        executorService.execute(() -> {
+            accountID = db.accountDAO().login(email_user).getAccountID();
+        });
     }
     private void initRecyclerView() {
         executorService.execute(() -> {

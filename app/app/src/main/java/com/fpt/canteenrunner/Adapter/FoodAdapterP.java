@@ -10,26 +10,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fpt.canteenrunner.DTO.FoodDTO;
 import com.fpt.canteenrunner.Database.Model.FoodsEntity;
 import com.fpt.canteenrunner.R;
-import com.fpt.canteenrunner.ViewHolder.FoodViewHolder;
+import com.fpt.canteenrunner.ViewHolder.FoodViewHolderP;
 
 import java.util.List;
 
-public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
-   List<FoodDTO> foodList;
-    public FoodAdapter(List<FoodDTO> foodList) {
+public class FoodAdapterP extends RecyclerView.Adapter<FoodViewHolderP> {
+    List<FoodDTO> foodList;
+    public FoodAdapterP(List<FoodDTO> foodList) {
         this.foodList = foodList;
     }
 
     @NonNull
     @Override
-    public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FoodViewHolderP onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.item_food_home, parent, false);
-        return new FoodViewHolder(view);
+        return new FoodViewHolderP(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FoodViewHolderP holder, int position) {
         FoodDTO food = foodList.get(position);
         holder.bind(food);
     }
@@ -38,10 +38,4 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
     public int getItemCount() {
         return foodList.size();
     }
-
-
-    public interface OnFoodClickListener {
-        void onFoodClick(String foodId);
-    }
-
 }

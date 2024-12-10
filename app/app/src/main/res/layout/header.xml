@@ -1,15 +1,16 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:layout_marginBottom="20dp"
     android:background="#A8D5BA"
     android:elevation="4dp"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    tools:context=".Header.HeaderActivity">
 
     <ImageView
         android:id="@+id/iv_avatar"
@@ -24,10 +25,10 @@
         android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Người dùng"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:fontFamily="sans-serif-medium"/>
+        android:fontFamily="serif"
+        android:text="Canteen Runner"
+        android:textColor="#FFF2A0"
+        android:textSize="24sp" />
 
     <View
         android:layout_width="0dp"
