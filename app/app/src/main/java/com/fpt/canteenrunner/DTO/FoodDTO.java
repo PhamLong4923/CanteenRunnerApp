@@ -21,6 +21,7 @@ public class FoodDTO {
         FoodId = foodId;
     }
 
+
     public String getCateID() {
         return CateID;
     }

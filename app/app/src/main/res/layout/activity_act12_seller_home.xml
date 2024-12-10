@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Canteen.ACT12Seller_Home">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@color/white">
+
+        <!-- Menu Button -->
+        <ImageButton
+            android:id="@+id/btnMenu"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_menu"
+            android:background="@drawable/round_button_background"
+            android:contentDescription="Menu"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="320dp" />
+
+        <Button
+            android:id="@+id/btnScanQR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan QR" />
+
+        <!-- Camera Preview -->
+        <FrameLayout
+            android:id="@+id/cameraPreview"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="72dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bật camera trước"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:gravity="center" />
+        </FrameLayout>
+
+        <!-- ID -->
+        <EditText
+            android:id="@+id/etID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID"
+            android:layout_below="@id/cameraPreview"
+            android:layout_marginTop="16dp"
+            android:inputType="text" />
+
+        <!-- Price -->
+        <EditText
+            android:id="@+id/etPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Price"
+            android:layout_below="@id/etID"
+            android:layout_marginTop="8dp"
+            android:inputType="numberDecimal" />
+
+        <!-- Time -->
+        <EditText
+            android:id="@+id/etTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Time"
+            android:layout_below="@id/etPrice"
+            android:layout_marginTop="8dp"
+            android:inputType="datetime" />
+
+        <!-- Canteen Name -->
+        <EditText
+            android:id="@+id/etCanteenName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Canteen Name"
+            android:layout_below="@id/etTime"
+            android:layout_marginTop="8dp"
+            android:inputType="text" />
+
+        <!-- New Button: "Đã hoàn thành" -->
+        <Button
+            android:id="@+id/btnCompleted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etCanteenName"
+            android:layout_marginTop="16dp"
+            android:text="Đã hoàn thành"
+            android:background="@drawable/round_button_background"
+            android:textColor="@color/white" />
+
+        <!-- Order Count Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/btnCompleted"
+            android:layout_marginTop="32dp"
+            android:weightSum="2">
+
+            <!-- Unprocessed Orders -->
+            <Button
+                android:id="@+id/btnUnprocessedOrders"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Số đơn chưa xử lí"
+                android:background="@drawable/round_button_background" />
+
+            <!-- Processed Orders -->
+            <Button
+                android:id="@+id/btnProcessedOrders"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Số đơn đã xử lí"
+                android:background="@drawable/round_button_background"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

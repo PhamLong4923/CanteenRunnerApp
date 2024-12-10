@@ -36,9 +36,12 @@ public class ACT16Activity extends AppCompatActivity implements FoodAdapter.OnFo
     private ExecutorService executorService;
     private CanteenRunnerDatabase db;
     private String canteenID ;
-    private String lightCateFoodID ="3" ;
+    private String lightCateFoodID ="2" ;
     private String FoodCateID = "1";
-    private String fastFoodCateID = "2";
+    private String fastFoodCateID = "5";
+    private String fastFoodCateID2 = "6";
+    private String lightCateFoodID2 = "3";
+    private String lightCateFoodID3 = "4";
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Override
@@ -89,11 +92,11 @@ public class ACT16Activity extends AppCompatActivity implements FoodAdapter.OnFo
             List<FoodDTO> drinkList = new ArrayList<>();
             List<FoodDTO> foodDTOlist = new ArrayList<>();
             for (FoodDTO food : foodList) {
-                if (food.getCateID().equals(lightCateFoodID)) {
+                if (food.getCateID().equals(lightCateFoodID) || food.getCateID().equals(lightCateFoodID2) || food.getCateID().equals(lightCateFoodID3)) {
                     lightFoodList.add(food);
                 } else if (food.getCateID().equals(FoodCateID)) {
                     foodDTOlist.add(food);
-                } else if (food.getCateID().equals(fastFoodCateID)) {
+                } else if (food.getCateID().equals(fastFoodCateID) || food.getCateID().equals(fastFoodCateID2)) {
                     drinkList.add(food);
                 }
             }

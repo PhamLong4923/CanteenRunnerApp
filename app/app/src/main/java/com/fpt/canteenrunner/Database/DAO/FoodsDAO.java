@@ -30,4 +30,7 @@ public interface FoodsDAO {
 
     @Query("SELECT * FROM foods WHERE CategoryID = :cateID")
     List<FoodsEntity> getFoodsByCategoryId(String cateID);
+
+    @Query("SELECT * FROM Foods WHERE CanteenID = :canteenId AND CategoryID = :categoryId")
+    List<FoodsEntity> getFoodsByCanteenIdAndCategoryId(String canteenId, String categoryId);
 }

@@ -1,5 +1,6 @@
 package com.fpt.canteenrunner.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import java.util.List;
 public class CanteenAdapter extends RecyclerView.Adapter<CanteenViewHolder> {
 
     private List<CanteenDTO> canteenList;
+
 
     public CanteenAdapter(List<CanteenDTO> canteenList) {
         this.canteenList = canteenList;

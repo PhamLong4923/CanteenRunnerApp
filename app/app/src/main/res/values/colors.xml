@@ -6,6 +6,7 @@
     <color name="lightGreen">#943D7E3F</color>
     <color name="darkGreen">#FF4CAF50</color>
     <color name="red">#FFC10758</color>
+    <color name="grey">#8C8284</color>
     <style name="textBold">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>

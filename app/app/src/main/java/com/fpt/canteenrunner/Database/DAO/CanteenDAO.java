@@ -22,10 +22,12 @@ public interface CanteenDAO {
 
     @Query("SELECT CanteenName FROM Canteen WHERE CanteenID = :canteenID")
     String getCanteenNameById(String canteenID);
+    @Query("SELECT * FROM Canteen WHERE CanteenID = :canteenId")
+    CanteenEntity getCanteenById(String canteenId);
 
     @Query("SELECT Image FROM Canteen WHERE CanteenID = :canteenID")
     String getCanteenImageById(String canteenID);
 
     @Query("SELECT * FROM Canteen WHERE CanteenID = :canteenID limit 1")
-    FoodsEntity getCanteenByAccount(String canteenID);
+    CanteenEntity getCanteenByAccount(String canteenID);
 }
