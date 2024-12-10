@@ -126,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity {
      */
     private void requestSmsPermissionAndSendOTP(String phone, String otp) {
         // Kiểm tra xem ứng dụng có quyền SEND_SMS hay không
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             // Nếu không có quyền, yêu cầu cấp quyền SEND_SMS từ người dùng
             // requestCode = 100 ở đây dùng để xác định yêu cầu cấp quyền sendSms
             // có thể dùng số nguyên khác nhưng phải là duy nhất
