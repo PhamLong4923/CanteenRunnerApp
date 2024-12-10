@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         for (FoodsEntity entity : foodsEntities) {
             FoodPricesEntity foodPrices = foodPricesDAO.getPricesByFood1(String.valueOf(entity.getFoodID()));
             double price = foodPrices.getPrice();
-            FoodDTO dto = new FoodDTO(entity.getImageURL(), entity.getName(), String.valueOf(price), String.valueOf(entity.getCategoryID()));
+            FoodDTO dto = new FoodDTO(String.valueOf(entity.getFoodID()),entity.getImageURL(), entity.getName(), String.valueOf(price), String.valueOf(entity.getCategoryID()));
             foodDTOs.add(dto);
         }
         return foodDTOs;
