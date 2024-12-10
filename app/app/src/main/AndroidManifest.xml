@@ -23,6 +23,9 @@
             android:name=".ACT17Activity"
             android:exported="true" />
         <activity
+            android:name=".Canteen.ACT7_Canteen_Selected"
+            android:exported="true" />
+        <activity
             android:name=".ACT16Activity"
             android:exported="true" />
         <activity
