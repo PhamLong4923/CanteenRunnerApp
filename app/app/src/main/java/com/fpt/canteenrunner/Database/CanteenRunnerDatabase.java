@@ -60,15 +60,15 @@ public abstract class CanteenRunnerDatabase extends RoomDatabase {
             super.onCreate(db);
             // Chèn dữ liệu mẫu
             try {
-                //accoutn mra / 123
+                //account mra / 123/ account dell nao cung pass 123 het
                 db.execSQL("INSERT INTO Account (AccountID, Username, Password, Email, PhoneNumber, Score, Role, CreatedDate, IsFingerPrintEnabled, FingerPrintData) VALUES " +
                         "(1, 'mra', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'mra@example.com', '0123456789', 100.0, 'User', '2024-01-01', 0, NULL), " +
-                        "(2, 'mrb', 'password', 'mrb@example.com', '0987654321', 100.0, 'User', '2024-01-01', 0, NULL), " +
-                        "(3, 'hanoipho', 'password', 'hanoipho@example.com', '0962171802', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
-                        "(4, 'quanganh', 'password', 'quanganh@example.com', '0962172276', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
-                        "(5, 'sendo', 'password', 'sendo@example.com', '0962170159', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
-                        "(6, 'fastfood', 'password', 'fastfood@example.com', '0962172196', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
-                        "(7, 'admin', 'password', 'admin@example.com', '0962719574', 2000.0, 'Admin', '2023-01-02', 1, 'SampleFingerData1');");
+                        "(2, 'mrb', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'mrb@example.com', '0987654321', 100.0, 'User', '2024-01-01', 0, NULL), " +
+                        "(3, 'hanoipho', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'hanoipho@example.com', '0962171802', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
+                        "(4, 'quanganh', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'quanganh@example.com', '0962172276', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
+                        "(5, 'sendo', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'sendo@example.com', '0962170159', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
+                        "(6, 'fastfood', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'fastfood@example.com', '0962172196', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
+                        "(7, 'admin', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'admin@example.com', '0962719574', 2000.0, 'Admin', '2023-01-02', 1, 'SampleFingerData1');");
 
                 db.execSQL("INSERT INTO Canteen (CanteenID, CanteenName, AccountID, Image) VALUES " +
                         "(1, 'Hà Nội Phố', 3, 'https://i.pinimg.com/736x/9c/32/21/9c3221b49038bd8c64947fc84db35a18--interior-design-offices-marble-counters.jpg'), " +

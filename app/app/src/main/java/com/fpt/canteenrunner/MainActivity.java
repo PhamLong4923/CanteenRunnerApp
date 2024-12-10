@@ -1,7 +1,9 @@
 package com.fpt.canteenrunner;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fpt.canteenrunner.Adapter.FoodAdapterP;
+import com.fpt.canteenrunner.AuthenActivity.LoginActivity;
 import com.fpt.canteenrunner.Canteen.ACT6_Canteens;
 import com.fpt.canteenrunner.Canteen.ProfileActivity;
 import com.fpt.canteenrunner.DTO.FoodDTO;
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         ImageButton btnMenu = findViewById(R.id.fabOptions);
         btnMenu.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(this, btnMenu);
@@ -138,5 +142,16 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String email_user = preferences.getString("email", null);
+        if (email_user == null){
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 
 }
