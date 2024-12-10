@@ -80,7 +80,6 @@ public class ACT16Activity extends AppCompatActivity {
                         food.getName(),
                         price,
                         food.getCategoryID()
-
                 );
                 foodList.add(dto);
             }

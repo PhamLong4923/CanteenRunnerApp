@@ -13,6 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.fpt.canteenrunner.AuthenActivity.LoginActivity;
 import com.fpt.canteenrunner.AuthenActivity.ResetPasswordActivity;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
 import com.fpt.canteenrunner.Database.DAO.AccountDAO;
@@ -26,7 +27,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ProfileActivity extends AppCompatActivity {
-    private TextView fullname, phoneNum, email, point;
+    private TextView fullname, phoneNum, email, point, btnLogout;
     private Button  btnChangePassword,btnMyTicket, btnMyPresentTicket;
     private AccountDAO accountDAO;
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -36,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
+        btnLogout = findViewById(R.id.logout);
         fullname = findViewById(R.id.tvFullName);
         phoneNum = findViewById(R.id.tvPhone);
         email = findViewById(R.id.tvEmail);
@@ -100,6 +102,18 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 });
             });
+        });
+        btnLogout.setOnClickListener(v -> {
+            // Xóa thông tin người dùng khỏi SharedPreferences
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.remove("email");
+            editor.apply();
+
+            // Chuyển hướng về trang đăng nhập (hoặc màn hình chính)
+            Intent intent = new Intent(ProfileActivity.this, LoginActivity.class); // Hoặc trang cần chuyển hướng
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
         });
     }
 }

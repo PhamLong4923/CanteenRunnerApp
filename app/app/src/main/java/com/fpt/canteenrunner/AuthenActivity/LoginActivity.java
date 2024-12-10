@@ -132,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("jwt_token", token);
         editor.putString("email", accountEntity.getEmail());
+        editor.putString("accountID", accountEntity.getAccountID());
         System.out.println("Bên Login save Email : " + accountEntity.getEmail());
         editor.apply();
     }
