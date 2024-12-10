@@ -38,4 +38,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodViewHolder> {
     public int getItemCount() {
         return foodList.size();
     }
+
+
+    public interface OnFoodClickListener {
+        void onFoodClick(String foodId);
+    }
+
 }

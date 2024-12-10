@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ACT16Activity extends AppCompatActivity {
+public class ACT16Activity extends AppCompatActivity implements FoodAdapter.OnFoodClickListener {
     private RecyclerView rvFood, rvLightMeal, rvDrink;
     private ImageView btnAddFood, backbtn;
     private List<FoodDTO> foodList = new ArrayList<>();
@@ -52,7 +52,6 @@ public class ACT16Activity extends AppCompatActivity {
         bindingView();
         bindingAction();
         initRecyclerView();
-        Intent intent = new Intent(this, ACT17Activity.class);
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -76,6 +75,7 @@ public class ACT16Activity extends AppCompatActivity {
             for (FoodsEntity food : foods) {
                 String price = String.valueOf(db.foodPricesDAO().getPricesByFood1(food.getFoodID().toString()).getPrice());
                 FoodDTO dto = new FoodDTO(
+                        food.getFoodID().toString(),
                         food.getImageURL(),
                         food.getName(),
                         price,
@@ -129,5 +129,12 @@ public class ACT16Activity extends AppCompatActivity {
         executorService = Executors.newSingleThreadExecutor();
         db = CanteenRunnerDatabase.getInstance(getApplicationContext());
 
+    }
+
+    @Override
+    public void onFoodClick(String foodId) {
+        Intent intent = new Intent(this, ACT17dActivity.class);
+        intent.putExtra("foodId", foodId);
+        activityResultLauncher.launch(intent);
     }
 }
