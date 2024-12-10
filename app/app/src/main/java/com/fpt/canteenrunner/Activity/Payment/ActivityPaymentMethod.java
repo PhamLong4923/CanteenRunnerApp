@@ -23,8 +23,10 @@ import com.fpt.canteenrunner.R;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import vn.zalopay.sdk.Environment;
 import vn.zalopay.sdk.ZaloPayError;
@@ -132,11 +134,13 @@ public class ActivityPaymentMethod extends AppCompatActivity {
         TicketDAO ticketDAO = database.ticketDAO();
         MyTicketDAO myTicketDAO = database.myTicketDAO();
         TicketEntity ticketEntity = new TicketEntity(ticketId, ticketPrice, canteenID);
-        executorService.submit(new Runnable() {
+
+        // Tạo task cho việc chèn Ticket
+        Future<?> ticketTask = executorService.submit(new Runnable() {
             @Override
             public void run() {
                 try {
-                    ticketDAO.insertTicket(ticketEntity);
+                    ticketDAO.insertTicket(ticketEntity);  // Chèn Ticket vào cơ sở dữ liệu
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("DatabaseError", "Failed to insert ticket", e);
@@ -159,18 +163,31 @@ public class ActivityPaymentMethod extends AppCompatActivity {
                 status,
                 null  // Nếu có mã QR thì điền vào đây
         );
-        executorService.submit(new Runnable() {
+
+        // Tạo task cho việc chèn MyTicket
+        Future<?> myTicketTask = executorService.submit(new Runnable() {
             @Override
             public void run() {
                 try {
-                    myTicketDAO.insertMyTicket(myTicketEntity);
+                    myTicketDAO.insertMyTicket(myTicketEntity);  // Chèn MyTicket vào cơ sở dữ liệu
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e("DatabaseError", "Failed to insert myticket", e);
                 }
             }
         });
+
+        // Chờ cho ticketTask hoàn thành trước khi tiếp tục với myTicketTask
+        try {
+            ticketTask.get();  // Chờ đợi tác vụ ticketTask hoàn thành
+            myTicketTask.get();  // Sau đó chờ đợi myTicketTask hoàn thành
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            Log.e("TaskError", "Error waiting for tasks", e);
+        }
     }
+
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
