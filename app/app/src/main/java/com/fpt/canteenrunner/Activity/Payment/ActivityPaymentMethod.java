@@ -1,6 +1,8 @@
 package com.fpt.canteenrunner.Activity.Payment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.fpt.canteenrunner.AuthenActivity.LoginActivity;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
 import com.fpt.canteenrunner.Database.DAO.MyTicketDAO;
 import com.fpt.canteenrunner.Database.DAO.TicketDAO;
@@ -40,43 +43,42 @@ public class ActivityPaymentMethod extends AppCompatActivity {
     private Button btnPayWithPoints, btnPayWithBank;
     private final ExecutorService executorService = Executors.newFixedThreadPool(4); // ExecutorService cho việc xử lý thanh toán
     CanteenRunnerDatabase database;
-    String canteenID;
-    double selectedPrice;
+    String canteenID, imageUrl, ticketID, accountID, email_user;
+    double price;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act9_payment_method);
 
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        email_user = preferences.getString("email", null);
+        accountID = preferences.getString("accountID", null);
+        if (email_user == null){
+            Intent intent = new Intent(ActivityPaymentMethod.this, LoginActivity.class);
+            startActivity(intent);
+        }
+
         database = CanteenRunnerDatabase.getInstance(this);
 
         ZaloPaySDK.init(2553, Environment.SANDBOX);
 
         // Nhận dữ liệu từ Intent
-        String foodName = getIntent().getStringExtra("FoodName");
-        String foodDescription = getIntent().getStringExtra("FoodDescription");
-        String categoryName = getIntent().getStringExtra("CategoryName");
         String canteenName = getIntent().getStringExtra("CanteenName");
-        String imageUrl = getIntent().getStringExtra("ImageURL");
-        selectedPrice = getIntent().getDoubleExtra("SelectedPrice", 0);
+        price = getIntent().getDoubleExtra("Price", 0);
         canteenID = getIntent().getStringExtra("CanteenID");
-
+        ticketID = getIntent().getStringExtra("TicketID");
+        imageUrl = getIntent().getStringExtra("ImageUrl");
         // Ánh xạ các View
         btnPayWithPoints = findViewById(R.id.btn_pay_with_points);
         btnPayWithBank = findViewById(R.id.btn_pay_with_zalo);
-        TextView tvFoodName = findViewById(R.id.tv_food_name);
-        TextView tvFoodDescription = findViewById(R.id.tv_food_description);
-        TextView tvCategoryName = findViewById(R.id.tv_category_name);
         TextView tvCanteenName = findViewById(R.id.tv_canteen_name);
         TextView tvFoodPrice = findViewById(R.id.tv_food_price);
         ImageView ivFoodImage = findViewById(R.id.iv_food_image);
 
         // Cập nhật giao diện
-        tvFoodName.setText("Tên: " + foodName);
-        tvFoodDescription.setText("Mô tả: " + foodDescription);
-        tvCategoryName.setText("Danh mục: " + categoryName);
         tvCanteenName.setText("Căng tin: " + canteenName);
-        tvFoodPrice.setText(String.format("Giá: %.0f", selectedPrice));
+        tvFoodPrice.setText(String.format("Giá: %.0f", price));
 
         // Hiển thị hình ảnh món ăn
         Glide.with(this).load(imageUrl).into(ivFoodImage);
@@ -87,7 +89,7 @@ public class ActivityPaymentMethod extends AppCompatActivity {
             executorService.submit(() -> {
                 try {
                     CreateOrder orderApi = new CreateOrder();
-                    JSONObject orderData = orderApi.createOrder(String.valueOf((int) selectedPrice));
+                    JSONObject orderData = orderApi.createOrder(String.valueOf((int) price));
 
                     String returnCode = orderData.getString("return_code");
                     if ("1".equals(returnCode)) {
@@ -128,40 +130,23 @@ public class ActivityPaymentMethod extends AppCompatActivity {
     // Hàm xử lý khi thanh toán thành công
     private void onPaymentSuccess(String transactionId, String transToken, String appTransId) {
         Toast.makeText(ActivityPaymentMethod.this, "Thanh toán thành công!", Toast.LENGTH_SHORT).show();
-        String ticketId = transactionId;
-        double ticketPrice = selectedPrice;
+        double ticketPrice = price;
 
-        TicketDAO ticketDAO = database.ticketDAO();
         MyTicketDAO myTicketDAO = database.myTicketDAO();
-        TicketEntity ticketEntity = new TicketEntity(ticketId, ticketPrice, canteenID);
-
-        // Tạo task cho việc chèn Ticket
-        Future<?> ticketTask = executorService.submit(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    ticketDAO.insertTicket(ticketEntity);  // Chèn Ticket vào cơ sở dữ liệu
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e("DatabaseError", "Failed to insert ticket", e);
-                }
-            }
-        });
-
-        String myTicketId = "MyTicket_" + ticketId;
+        String myTicketId = "MyTicket_" + transactionId;
         String orderDate = new Date().toString();
         String paymentType = "Credit Card";
         String status = "Paid";
 
         MyTicketEntity myTicketEntity = new MyTicketEntity(
                 myTicketId,
-                "1",  // AccountID mặc định là 1
-                ticketId,
+                accountID,  // AccountID mặc định là 1
+                ticketID,
                 orderDate,
                 ticketPrice,
                 paymentType,
                 status,
-                null  // Nếu có mã QR thì điền vào đây
+                "SampleQRCode1"  // Nếu có mã QR thì điền vào đây
         );
 
         // Tạo task cho việc chèn MyTicket
@@ -176,10 +161,7 @@ public class ActivityPaymentMethod extends AppCompatActivity {
                 }
             }
         });
-
-        // Chờ cho ticketTask hoàn thành trước khi tiếp tục với myTicketTask
         try {
-            ticketTask.get();  // Chờ đợi tác vụ ticketTask hoàn thành
             myTicketTask.get();  // Sau đó chờ đợi myTicketTask hoàn thành
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -198,5 +180,17 @@ public class ActivityPaymentMethod extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         executorService.shutdown(); // Đảm bảo ExecutorService được tắt khi không còn sử dụng
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        email_user = preferences.getString("email", null);
+        accountID = preferences.getString("accountID", null);
+        if (email_user == null){
+            Intent intent = new Intent(ActivityPaymentMethod.this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 }

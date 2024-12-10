@@ -1,16 +1,23 @@
 package com.fpt.canteenrunner.Activity.Payment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.fpt.canteenrunner.Adapter.TicketAdapter;
 import com.fpt.canteenrunner.Adapter.TicketPriceAdapter;
+import com.fpt.canteenrunner.AuthenActivity.LoginActivity;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
 import com.fpt.canteenrunner.Database.Model.FoodPricesEntity;
 import com.fpt.canteenrunner.Database.Model.FoodsEntity;
+import com.fpt.canteenrunner.Database.Model.TicketEntity;
+import com.fpt.canteenrunner.MainActivity;
 import com.fpt.canteenrunner.R;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -19,33 +26,41 @@ import java.util.concurrent.Executors;
 public class ActivitySelectTicket extends AppCompatActivity {
 
     private RecyclerView rvTicketPrices;
-    private TicketPriceAdapter ticketPriceAdapter;
+    private TicketAdapter ticketAdapter;
+    String imageUrl, accountID, email_user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act8_select_ticket);
 
-        rvTicketPrices = findViewById(R.id.rv_ticket_prices);
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        email_user = preferences.getString("email", null);
+        accountID = preferences.getString("accountID", null);
+        if (email_user == null){
+            Intent intent = new Intent(ActivitySelectTicket.this, LoginActivity.class);
+            startActivity(intent);
+        }
 
-        // Nhận FoodID từ Intent
-        String foodId = getIntent().getStringExtra("FoodID");
-        if (foodId == null || foodId.isEmpty()) {
-            Toast.makeText(this, "Không có thông tin FoodID, cho FoodID = 17", Toast.LENGTH_SHORT).show();
-            foodId = "17"; // Giá trị mặc định
+        rvTicketPrices = findViewById(R.id.rv_ticket_prices);
+        // Nhận CanteenId từ Intent
+        String canteenId = getIntent().getStringExtra("canteen_id");
+        if (canteenId == null || canteenId.isEmpty()) {
+            Toast.makeText(this, "Không có thông tin canteenId, cho canteenId = 2", Toast.LENGTH_SHORT).show();
+            canteenId = "2"; // Giá trị mặc định
         }
 
         // Sử dụng Executor để thực hiện truy vấn
         Executor executor = Executors.newSingleThreadExecutor();
-        String finalFoodId = foodId;
+        String finalCanteenId = canteenId;
         executor.execute(() -> {
             // Lấy thông tin giá vé
-            List<FoodPricesEntity> prices = CanteenRunnerDatabase.getInstance(this).foodPricesDAO().getPricesByFood(finalFoodId);
-
+            List<TicketEntity> tickets = CanteenRunnerDatabase.getInstance(this).ticketDAO().getTicketsByCanteen(finalCanteenId);
+            imageUrl = CanteenRunnerDatabase.getInstance(this).canteenDAO().getCanteenImageById(finalCanteenId);
             // Kiểm tra nếu không có giá vé
-            if (prices == null || prices.isEmpty()) {
+            if (tickets == null || tickets.isEmpty()) {
                 runOnUiThread(() -> {
-                    Toast.makeText(this, "Không có giá vé cho món ăn này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Căng tin này không bán vé", Toast.LENGTH_SHORT).show();
                     finish();
                 });
                 return;
@@ -53,41 +68,48 @@ public class ActivitySelectTicket extends AppCompatActivity {
 
             // Cập nhật giao diện RecyclerView
             runOnUiThread(() -> {
-                ticketPriceAdapter = new TicketPriceAdapter(prices, this::onTicketPriceSelected);
+                ticketAdapter = new TicketAdapter(tickets, this::onTicketPriceSelected);
                 rvTicketPrices.setLayoutManager(new LinearLayoutManager(this));
-                rvTicketPrices.setAdapter(ticketPriceAdapter);
+                rvTicketPrices.setAdapter(ticketAdapter);
             });
         });
     }
 
-    private void onTicketPriceSelected(FoodPricesEntity selectedPrice) {
+    private void onTicketPriceSelected(TicketEntity selectedTicket) {
         Executor executor = Executors.newSingleThreadExecutor();
 
         executor.execute(() -> {
-            // Lấy thông tin món ăn từ CSDL
-            FoodsEntity food = CanteenRunnerDatabase.getInstance(this).foodsDAO().getFoodById(selectedPrice.getFoodID());
+            // Lấy thông tin vé từ CSDL
+            TicketEntity ticket = CanteenRunnerDatabase.getInstance(this).ticketDAO().getTicketById(selectedTicket.getTicketID());
 
-            if (food == null) {
-                runOnUiThread(() -> Toast.makeText(this, "Không tìm thấy món ăn này", Toast.LENGTH_SHORT).show());
+            if (ticket == null) {
+                runOnUiThread(() -> Toast.makeText(this, "Không tìm thấy giá vé này", Toast.LENGTH_SHORT).show());
                 return;
             }
 
-            // Lấy thêm thông tin Category và Canteen
-            String categoryName = CanteenRunnerDatabase.getInstance(this).categoriesDAO().getCategoryNameById(food.getCategoryID());
-            String canteenName = CanteenRunnerDatabase.getInstance(this).canteenDAO().getCanteenNameById(food.getCanteenID());
+            String canteenName = CanteenRunnerDatabase.getInstance(this).canteenDAO().getCanteenNameById(ticket.getCanteenID());
 
             // Chuyển về main thread để chuẩn bị dữ liệu và chuyển Activity
             runOnUiThread(() -> {
                 Intent intent = new Intent(ActivitySelectTicket.this, ActivityPaymentMethod.class);
-                intent.putExtra("FoodName", food.getName());
-                intent.putExtra("FoodDescription", food.getDescription());
-                intent.putExtra("CategoryName", categoryName);
+                intent.putExtra("Price", ticket.getTicketPrice());
                 intent.putExtra("CanteenName", canteenName);
-                intent.putExtra("ImageURL", food.getImageURL());
-                intent.putExtra("SelectedPrice", selectedPrice.getPrice()); // Đưa giá vé được chọn vào Intent
-                intent.putExtra("CanteenID", food.getCanteenID());
+                intent.putExtra("CanteenID", ticket.getCanteenID());
+                intent.putExtra("TicketID", ticket.getTicketID());
+                intent.putExtra("ImageUrl", imageUrl);
                 startActivity(intent);
             });
         });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        email_user = preferences.getString("email", null);
+        accountID = preferences.getString("accountID", null);
+        if (email_user == null){
+            Intent intent = new Intent(ActivitySelectTicket.this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 }
