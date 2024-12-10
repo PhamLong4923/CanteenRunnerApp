@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fpt.canteenrunner.Adapter.TicketAdapter;
 import com.fpt.canteenrunner.Adapter.TicketPriceAdapter;
 import com.fpt.canteenrunner.AuthenActivity.LoginActivity;
+import com.fpt.canteenrunner.Canteen.ProfileActivity;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
 import com.fpt.canteenrunner.Database.Model.FoodPricesEntity;
 import com.fpt.canteenrunner.Database.Model.FoodsEntity;
@@ -72,6 +75,14 @@ public class ActivitySelectTicket extends AppCompatActivity {
                 rvTicketPrices.setLayoutManager(new LinearLayoutManager(this));
                 rvTicketPrices.setAdapter(ticketAdapter);
             });
+        });
+        ImageView ivAvatar = findViewById(R.id.iv_avatar);
+        ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivitySelectTicket.this, ProfileActivity.class);
+                startActivity(intent);
+            }
         });
     }
 

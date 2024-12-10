@@ -67,6 +67,14 @@ public class ACT7_Canteen_Selected extends AppCompatActivity {
         bindingAction();
         initCateenInfo(canteenId);
         initRecyclerView(canteenId, "1");
+        ImageView ivAvatar = findViewById(R.id.iv_avatar);
+        ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ACT7_Canteen_Selected.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void bindingView(){

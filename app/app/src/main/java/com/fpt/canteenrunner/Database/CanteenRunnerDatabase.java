@@ -149,10 +149,10 @@ public abstract class CanteenRunnerDatabase extends RoomDatabase {
                         "(16, 45000, 3);");
 
                 db.execSQL("INSERT INTO MyTicket (MyTicketID, AccountID, TicketID, OrderDate, Price, PaymentType, Status, QrCode) VALUES " +
-                        "(1, 1, 10, '2024-01-05', 35000, 'Credit Card', 'Paid', 'SampleQRCode1'), " +
-                        "(2, 1, 12, '2024-01-05', 40000, 'Cash', 'Pending', NULL), " +
-                        "(3, 2, 9, '2024-01-05', 35000, 'Credit Card', 'Paid', 'SampleQRCode1'), " +
-                        "(4, 2, 13, '2024-01-06', 40000, 'Cash', 'Pending', NULL);");
+                        "(1, 1, 10, '2024-01-05', 35000, 'Credit Card', 'Paid', NULL), " +
+                        "(2, 1, 12, '2024-01-05', 40000, 'Cash', 'Pending', 'SampleQRCode1'), " +
+                        "(3, 2, 9, '2024-01-05', 35000, 'Credit Card', 'Paid', NULL), " +
+                        "(4, 2, 13, '2024-01-06', 40000, 'Cash', 'Pending', 'SampleQRCode1');");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

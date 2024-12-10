@@ -2,6 +2,8 @@ package com.fpt.canteenrunner.Canteen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +15,7 @@ import com.fpt.canteenrunner.DTO.CanteenDTO;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
 import com.fpt.canteenrunner.Database.DAO.CanteenDAO;
 import com.fpt.canteenrunner.Database.Model.CanteenEntity;
+import com.fpt.canteenrunner.MainActivity;
 import com.fpt.canteenrunner.R;
 
 import java.util.ArrayList;
@@ -39,10 +42,14 @@ public class ACT6_Canteens extends AppCompatActivity {
         bindingAction();
 
         initRecyclerView();
-
-
-
-//
+        ImageView ivAvatar = findViewById(R.id.iv_avatar);
+        ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ACT6_Canteens.this, ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void bindingAction() {
