@@ -28,6 +28,6 @@ public interface CanteenDAO {
     @Query("SELECT Image FROM Canteen WHERE CanteenID = :canteenID")
     String getCanteenImageById(String canteenID);
 
-    @Query("SELECT * FROM Canteen WHERE CanteenID = :canteenID limit 1")
-    CanteenEntity getCanteenByAccount(String canteenID);
+    @Query("SELECT * FROM Canteen WHERE AccountID = :accountId limit 1")
+    CanteenEntity getCanteenByAccount(String accountId);
 }

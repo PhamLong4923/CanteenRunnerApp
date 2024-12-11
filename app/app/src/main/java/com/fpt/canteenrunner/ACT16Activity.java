@@ -62,13 +62,19 @@ public class ACT16Activity extends AppCompatActivity implements FoodAdapter.OnFo
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         initRecyclerView();
-
                     }
                 }
         );
     }
 
     private void initRecyclerView() {
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String email_user = preferences.getString("email", null);
+        executorService.execute(() -> {
+            String accountID = db.accountDAO().login(email_user).getAccountID();
+            canteenID = db.canteenDAO().getCanteenByAccount(accountID).getCanteenID().toString();
+        });
+
         // Tạo LayoutManager riêng biệt cho từng RecyclerView
         rvFood.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         rvLightMeal.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
@@ -92,11 +98,11 @@ public class ACT16Activity extends AppCompatActivity implements FoodAdapter.OnFo
             List<FoodDTO> drinkList = new ArrayList<>();
             List<FoodDTO> foodDTOlist = new ArrayList<>();
             for (FoodDTO food : foodList) {
-                if (food.getCateID().equals(lightCateFoodID) || food.getCateID().equals(lightCateFoodID2) || food.getCateID().equals(lightCateFoodID3)) {
+                if (food.getCateID().equals(lightCateFoodID.trim()) || food.getCateID().equals(lightCateFoodID2.trim()) || food.getCateID().equals(lightCateFoodID3.trim())) {
                     lightFoodList.add(food);
-                } else if (food.getCateID().equals(FoodCateID)) {
+                } else if (food.getCateID().equals(FoodCateID.trim())) {
                     foodDTOlist.add(food);
-                } else if (food.getCateID().equals(fastFoodCateID) || food.getCateID().equals(fastFoodCateID2)) {
+                } else if (food.getCateID().equals(fastFoodCateID.trim()) || food.getCateID().equals(fastFoodCateID2.trim())) {
                     drinkList.add(food);
                 }
             }
@@ -109,6 +115,12 @@ public class ACT16Activity extends AppCompatActivity implements FoodAdapter.OnFo
 
             });
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initRecyclerView();
     }
 
     private void bindingAction() {
@@ -133,13 +145,7 @@ public class ACT16Activity extends AppCompatActivity implements FoodAdapter.OnFo
         backbtn = findViewById(R.id.back_btn);
         executorService = Executors.newSingleThreadExecutor();
         db = CanteenRunnerDatabase.getInstance(getApplicationContext());
-        SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String email_user = preferences.getString("email", null);
-        executorService.execute(() -> {
-           String accountID = db.accountDAO().login(email_user).getAccountID();
-            canteenID = db.canteenDAO().getCanteenByAccount(accountID).getCanteenID().toString();
-        });
-    }
+            }
 
     @Override
     public void onFoodClick(String foodId) {
