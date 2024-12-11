@@ -3,7 +3,7 @@
     android:id="@+id/btn_ticket"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textColor="@color/black"
+    android:textColor="@color/white"
     android:textSize="18sp"
     android:layout_marginBottom="8dp"
     android:padding="12dp" />
