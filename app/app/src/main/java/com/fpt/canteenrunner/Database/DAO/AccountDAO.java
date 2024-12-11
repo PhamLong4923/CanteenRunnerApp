@@ -29,5 +29,10 @@ public interface AccountDAO {
     @Update
     Integer updatePassword(AccountEntity account);
 
+    @Query("SELECT * FROM Account WHERE AccountID = :accountID")
+    AccountEntity getAccountByID(String accountID);
 
+    //cộng 1 điểm cho accountID chỉ định
+    @Query("UPDATE Account SET Score = Score + 1 WHERE AccountID = :accountID")
+    void addPoint(String accountID);
 }

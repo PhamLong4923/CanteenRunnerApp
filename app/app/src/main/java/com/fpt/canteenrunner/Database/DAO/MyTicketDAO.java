@@ -23,4 +23,8 @@ public interface MyTicketDAO {
 
     @Query("SELECT * FROM MyTicket WHERE MyTicketID = :ticketId")
     MyTicketEntity getMyTicketById(String ticketId);
+
+    //đổi status của vé
+    @Query("UPDATE MyTicket SET Status = 'Paid' WHERE MyTicketID = :ticketId")
+    void updateStatus(String ticketId);
 }
