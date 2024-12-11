@@ -66,14 +66,14 @@ public abstract class CanteenRunnerDatabase extends RoomDatabase {
                         "(2, 'mrb', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'mrb@example.com', '0987654321', 100.0, 'User', '2024-01-01', 0, NULL), " +
                         "(3, 'hanoipho', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'hanoipho@example.com', '0962171802', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
                         "(4, 'quanganh', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'quanganh@example.com', '0962172276', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
-                        "(5, 'sendo', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'sendo@example.com', '0962170159', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
+                        "(5, 'simdo', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'simdo@example.com', '0962170159', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
                         "(6, 'fastfood', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'fastfood@example.com', '0962172196', 100.0, 'Seller', '2024-01-01', 0, NULL), " +
                         "(7, 'admin', '$2a$10$qyJs9H3MTpb3C0i2LextCuf7XlXNhOCXCL5dkoH7Q/1cLvEonvLr2', 'admin@example.com', '0962719574', 2000.0, 'Admin', '2023-01-02', 1, 'SampleFingerData1');");
 
                 db.execSQL("INSERT INTO Canteen (CanteenID, CanteenName, AccountID, Image) VALUES " +
-                        "(1, 'Hà Nội Phố', 3, 'https://i.pinimg.com/736x/9c/32/21/9c3221b49038bd8c64947fc84db35a18--interior-design-offices-marble-counters.jpg'), " +
-                        "(2, 'Quang Anh Canteen', 4, 'https://giathicong.com/wp-content/uploads/2023/05/thiet-ke-can-tin-2.jpg'), " +
-                        "(3, 'Sendo', 5, 'https://th.bing.com/th/id/OIP.4dvMrEru9swHApwRoNFD1gHaEK?rs=1&pid=ImgDetMain'), " +
+                        "(1, 'Hà Nội Phố', 3, 'https://scontent.fhan15-1.fna.fbcdn.net/v/t1.15752-9/462568998_1786002385531733_3823915966563814947_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeHgxLxyh5ADv7tX-dAXqognkRqbyqjA6cCRGpvKqMDpwMuncPyZeVodobmS0OcwKu0tDc2OhY4w_6AyXJ76ZZYN&_nc_ohc=F1ERTzT8ELoQ7kNvgFZAS5b&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&oh=03_Q7cD1QFUVWoHekZVe8sSBZiY5MOFEoS4iFDj-LyKtc0mSlVK4Q&oe=6780F735'), " +
+                        "(2, 'Quang Anh Canteen', 4, 'https://scontent.fhan20-1.fna.fbcdn.net/v/t1.15752-9/467129860_1001601938393888_7531430362697881714_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGm1c6K9S8YMdUMUyy5wpLVPv3VH7Tv23E-_dUftO_bcdSxAvZ-PSx_jGJv9OjCkZT98SSb_hESAg-XKg1rImwv&_nc_ohc=xgHdQj3YKEEQ7kNvgEiiN-B&_nc_zt=23&_nc_ht=scontent.fhan20-1.fna&oh=03_Q7cD1QFmERZSdFuHjlxDD7da4Se7mE9ZiLo6xrOu1TDU8LZtgg&oe=6781291D'), " +
+                        "(3, 'Simdo', 5, 'https://scontent.fhan15-1.fna.fbcdn.net/v/t1.15752-9/467480087_477443755365344_8441671924614553440_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGg9omoKc0Xy8fas3_4SfGl2UMM59SYxWHZQwzn1JjFYcQ4d2ij51dhS3qMLYFepL5rq_exetzBVmom6YZnKhJ9&_nc_ohc=N2V6ojKzLL4Q7kNvgG7tTsd&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&oh=03_Q7cD1QFWyd-mH7IKPWA5r6OV7njKZbGqsXcqiiObtUKEl2vDVQ&oe=6781187D'), " +
                         "(4, 'Fastfood', 6, 'https://th.bing.com/th/id/OIP.4dvMrEru9swHApwRoNFD1gHaEK?rs=1&pid=ImgDetMain');");
 
                 db.execSQL("INSERT INTO Categories (CategoryID, Name, Description) VALUES " +
@@ -135,12 +135,12 @@ public abstract class CanteenRunnerDatabase extends RoomDatabase {
                         "(22, 18, 40000), " +
                         "(23, 17, 45000), " +
                         "(24, 18, 45000), " +
-                        "(23, 19, 10000), " +
-                        "(23, 20, 15000), " +
-                        "(23, 21, 15000), " +
-                        "(23, 22, 10000), " +
-                        "(23, 23, 35000), " +
-                        "(24, 24, 35000);");
+                        "(25, 19, 10000), " +
+                        "(26, 20, 15000), " +
+                        "(27, 21, 15000), " +
+                        "(28, 22, 10000), " +
+                        "(29, 23, 35000), " +
+                        "(30, 24, 35000);");
 
                 db.execSQL("INSERT INTO Ticket (TicketID, TicketPrice, CanteenID) VALUES " +
                         "(1, 5000, 2), " +

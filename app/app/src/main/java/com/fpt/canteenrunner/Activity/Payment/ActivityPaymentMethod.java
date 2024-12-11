@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.fpt.canteenrunner.AuthenActivity.LoginActivity;
 import com.fpt.canteenrunner.Canteen.ProfileActivity;
 import com.fpt.canteenrunner.Database.CanteenRunnerDatabase;
+import com.fpt.canteenrunner.Database.DAO.AccountDAO;
 import com.fpt.canteenrunner.Database.DAO.MyTicketDAO;
 import com.fpt.canteenrunner.Database.DAO.TicketDAO;
 import com.fpt.canteenrunner.Database.Model.MyTicketEntity;
@@ -89,6 +91,7 @@ public class ActivityPaymentMethod extends AppCompatActivity {
 
         // Xử lý nút thanh toán ZaloPay
         btnPayWithBank.setOnClickListener(v -> {
+            btnPayWithBank.setEnabled(false);
             // Gọi API tạo đơn hàng và xử lý thanh toán
             executorService.submit(() -> {
                 try {
@@ -128,6 +131,7 @@ public class ActivityPaymentMethod extends AppCompatActivity {
                     runOnUiThread(() -> Toast.makeText(ActivityPaymentMethod.this, "Lỗi hệ thống", Toast.LENGTH_SHORT).show());
                 }
             });
+            new Handler().postDelayed(() -> btnPayWithBank.setEnabled(true), 10000);
         });
         ImageView ivAvatar = findViewById(R.id.iv_avatar);
         ivAvatar.setOnClickListener(new View.OnClickListener() {
@@ -141,15 +145,14 @@ public class ActivityPaymentMethod extends AppCompatActivity {
 
     // Hàm xử lý khi thanh toán thành công
     private void onPaymentSuccess(String transactionId, String transToken, String appTransId) {
-        Toast.makeText(ActivityPaymentMethod.this, "Thanh toán thành công!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ActivityPaymentMethod.this, "Thanh toán thành công! Bạn được cộng 1 điểm", Toast.LENGTH_SHORT).show();
         double ticketPrice = price;
-
+        AccountDAO accountDAO = database.accountDAO();
         MyTicketDAO myTicketDAO = database.myTicketDAO();
         String myTicketId = "MyTicket_" + transactionId;
         String orderDate = new Date().toString();
         String paymentType = "Credit Card";
         String status = "Pending";
-
         MyTicketEntity myTicketEntity = new MyTicketEntity(
                 myTicketId,
                 accountID,  // AccountID mặc định là 1
@@ -160,7 +163,18 @@ public class ActivityPaymentMethod extends AppCompatActivity {
                 status,
                 "SampleQRCode1"  // Nếu có mã QR thì điền vào đây
         );
-
+        //Tạo task cho việc cộng điểm
+        Future<?> accountTask = executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    accountDAO.addPoint(accountID);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("DatabaseError", "Failed to addpoint", e);
+                }
+            }
+        });
         // Tạo task cho việc chèn MyTicket
         Future<?> myTicketTask = executorService.submit(new Runnable() {
             @Override
@@ -174,7 +188,8 @@ public class ActivityPaymentMethod extends AppCompatActivity {
             }
         });
         try {
-            myTicketTask.get();  // Sau đó chờ đợi myTicketTask hoàn thành
+            accountTask.get();
+            myTicketTask.get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             Log.e("TaskError", "Error waiting for tasks", e);

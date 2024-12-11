@@ -25,8 +25,10 @@ import com.fpt.canteenrunner.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class ACT12Seller_Home extends AppCompatActivity {
 
@@ -75,6 +77,7 @@ public class ACT12Seller_Home extends AppCompatActivity {
                 integrator.setBeepEnabled(true);
                 integrator.setBarcodeImageEnabled(true);
                 integrator.initiateScan();
+                btnCompleted.setEnabled(true);
             }
         });
 
@@ -84,9 +87,22 @@ public class ACT12Seller_Home extends AppCompatActivity {
 
     private void onClickCompleted(View view) {
         String ticketId = etID.getText().toString().trim();
-        executorservice.execute(() -> {
+        Future<Void> future = executorservice.submit(() -> {
             checkTicketStatus(ticketId);
+            return null; // trả về null vì không cần giá trị trả về
         });
+
+        try {
+            // Chờ cho đến khi checkTicketStatus hoàn tất
+            future.get();  // future.get() sẽ chặn cho đến khi tác vụ kết thúc
+            // Sau khi checkTicketStatus hoàn thành, cập nhật trạng thái
+            executorservice.execute(() -> {
+                db.myTicketDAO().updateStatus(ticketId);
+            });
+        } catch (InterruptedException | ExecutionException e) {
+            // Xử lý lỗi nếu có
+            e.printStackTrace();
+        }
     }
 
     private void onClickMenu(View view) {
@@ -151,9 +167,10 @@ public class ACT12Seller_Home extends AppCompatActivity {
                         runOnUiThread(() -> {
                             if ("Pending".equalsIgnoreCase(status)) {
                                 btnCompleted.setEnabled(true);
+                                Toast.makeText(this, "Ticket thanh toán thành công!", Toast.LENGTH_SHORT).show();
                             } else if ("Paid".equalsIgnoreCase(status)) {
                                 btnCompleted.setEnabled(false);
-                                Toast.makeText(this, "Ticket đã thanh toán", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Ticket này đã thanh toán lâu rồi!", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
