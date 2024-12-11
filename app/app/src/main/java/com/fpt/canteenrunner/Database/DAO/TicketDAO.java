@@ -17,6 +17,8 @@ public interface TicketDAO {
 
     @Query("SELECT * FROM Ticket WHERE TicketID = :ticketId limit 1")
     TicketEntity getTicketById(String ticketId);
+    @Query("SELECT CanteenID FROM Ticket WHERE TicketID = :ticketId limit 1")
+    String getCanteenIDByTicketId(String ticketId);
 
 
 }

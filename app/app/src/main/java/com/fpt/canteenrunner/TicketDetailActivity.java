@@ -58,7 +58,7 @@ public class TicketDetailActivity extends AppCompatActivity {
                     tvCanten.setText(canteenName);
                     tvPrice.setText(Price);
                     tvOrderDate.setText(qrCode.getOrderDate());
-                    qrStringCode = qrCode.getQrCode()+" | "+qrCode.getPrice()+" | "+qrCode.getOrderDate()+" | "+canteenName;
+                    qrStringCode = qrCode.getMyTicketID()+" | "+qrCode.getPrice()+" | "+qrCode.getOrderDate()+" | "+canteenName;
                     generateQRCode(qrStringCode);
                 });
             });

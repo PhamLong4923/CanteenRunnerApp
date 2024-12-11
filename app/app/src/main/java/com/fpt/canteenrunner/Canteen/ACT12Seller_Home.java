@@ -1,6 +1,8 @@
 package com.fpt.canteenrunner.Canteen;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +36,7 @@ public class ACT12Seller_Home extends AppCompatActivity {
     private Button btnCompleted;
     private ExecutorService executorservice;
     private CanteenRunnerDatabase db;
+    private String canteenID ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,14 @@ public class ACT12Seller_Home extends AppCompatActivity {
         });
 
         menu.setOnClickListener(this::onClickMenu);
+        btnCompleted.setOnClickListener(this::onClickCompleted);
+    }
+
+    private void onClickCompleted(View view) {
+        String ticketId = etID.getText().toString().trim();
+        executorservice.execute(() -> {
+            checkTicketStatus(ticketId);
+        });
     }
 
     private void onClickMenu(View view) {
@@ -85,27 +96,79 @@ public class ACT12Seller_Home extends AppCompatActivity {
     }
 
     private void checkTicketStatus(String ticketId) {
-
         executorservice.execute(() -> {
+            try {
+                // Lấy ticket từ database
+                MyTicketEntity ticket = db.myTicketDAO().getMyTicketById(ticketId);
 
-            MyTicketEntity ticket = db.myTicketDAO().getTicketById(ticketId);
-
-            if (ticket != null) {
-                String status = ticket.getStatus();
-
-
-                runOnUiThread(() -> {
-                    if ("Pending".equalsIgnoreCase(status)) {
-                        btnCompleted.setEnabled(true);
-                    } else if ("Paid".equalsIgnoreCase(status)) {
-                        btnCompleted.setEnabled(false);
-                        Toast.makeText(this, "Ticket đã thanh toán, không thể hoàn tất!", Toast.LENGTH_SHORT).show();
+                if (ticket != null) {
+                    // Lấy canteen ID của ticket
+                    String cID = db.ticketDAO().getCanteenIDByTicketId(ticket.TicketID);
+                    if (cID == null) {
+                        runOnUiThread(() -> Toast.makeText(this, "Không tìm thấy canteen của ticket!", Toast.LENGTH_SHORT).show());
+                        return;
                     }
-                });
-            } else {
+
+                    // Lấy thông tin người dùng
+                    SharedPreferences preferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                    String email_user = preferences.getString("email", null);
+
+                    if (email_user == null) {
+                        runOnUiThread(() -> Toast.makeText(this, "Không tìm thấy email người dùng!", Toast.LENGTH_SHORT).show());
+                        return;
+                    }
+
+                    // Lấy account ID từ email
+                    String accountID = db.accountDAO().login(email_user) != null
+                            ? db.accountDAO().login(email_user).getAccountID()
+                            : null;
+
+                    if (accountID == null) {
+                        runOnUiThread(() -> Toast.makeText(this, "Không tìm thấy tài khoản!", Toast.LENGTH_SHORT).show());
+                        return;
+                    }
+
+                    // Lấy canteen ID của tài khoản
+                    String canteenID = db.canteenDAO().getCanteenByAccount(accountID) != null
+                            ? db.canteenDAO().getCanteenByAccount(accountID).getCanteenID().toString()
+                            : null;
+
+                    if (canteenID == null) {
+                        runOnUiThread(() -> Toast.makeText(this, "Không tìm thấy canteen của tài khoản!", Toast.LENGTH_SHORT).show());
+                        return;
+                    }
+
+                    // So sánh canteen ID
+                    if (!cID.equals(canteenID)) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(this, "Ticket này không thuộc nhà ăn của bạn!", Toast.LENGTH_SHORT).show();
+                            btnCompleted.setEnabled(false);
+                        });
+                    } else {
+                        // Kiểm tra trạng thái ticket
+                        String status = ticket.getStatus();
+
+                        runOnUiThread(() -> {
+                            if ("Pending".equalsIgnoreCase(status)) {
+                                btnCompleted.setEnabled(true);
+                            } else if ("Paid".equalsIgnoreCase(status)) {
+                                btnCompleted.setEnabled(false);
+                                Toast.makeText(this, "Ticket đã thanh toán", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                } else {
+                    // Ticket không tồn tại
+                    runOnUiThread(() -> {
+                        btnCompleted.setEnabled(false);
+                        Toast.makeText(this, "Không tìm thấy Ticket!", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            } catch (Exception e) {
+                // Xử lý ngoại lệ
                 runOnUiThread(() -> {
+                    Toast.makeText(this, "Đã xảy ra lỗi: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     btnCompleted.setEnabled(false);
-                    Toast.makeText(this, "Không tìm thấy Ticket!", Toast.LENGTH_SHORT).show();
                 });
             }
         });
