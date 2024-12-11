@@ -1,9 +1,7 @@
-name: Canteen Runner
+name: Build & Publish Release APK
 
 on:
   push:
-    branchs:
-      - main
     tags:
       - '*'
 
