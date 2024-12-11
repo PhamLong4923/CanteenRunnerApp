@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:padding="10dp"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         app:srcCompat="@drawable/food_image" />
 
     <LinearLayout
