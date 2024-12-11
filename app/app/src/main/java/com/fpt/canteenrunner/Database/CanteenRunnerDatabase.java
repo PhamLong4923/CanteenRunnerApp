@@ -98,11 +98,17 @@ public abstract class CanteenRunnerDatabase extends RoomDatabase {
                         "(11, 'Mì tôm', 'Wtf cho ăn mì với xiên bẩn?', 3, 2, 'https://i0.wp.com/yeuamthuc.org/wp-content/uploads/2024/04/lau-ly-xien-ban-cua-quan-le-la-xien-0f61055f.jpg?resize=749%2C749&ssl=1', '2024-01-01'), " +
                         "(12, 'Xôi', 'Hay quịt dưa chuột, thịt nhiều mỡ ăn nhiều ngấy', 2, 2, 'https://i-giadinh.vnecdn.net/2023/11/19/Bc8Thnhphm18-1700369779-5346-1700369782.jpg', '2024-01-01'), " +
                         "(13, 'Xôi', 'Thịt ngon nhưng không có dưa chuột', 2, 3, 'https://cdn.tgdd.vn/Files/2022/03/31/1423320/cach-lam-xoi-thit-kho-trung-ngon-nhut-nach-don-gian-de-lam-tai-nha-202203312359050604.jpg', '2024-01-01'), " +
-                        "(14, 'Phở', 'Phở bòa hấp dẫn, thua xa nội thành và các quán khác', 3, 1, 'https://fohlafood.vn/cdn/shop/articles/bi-quyet-nau-phi-bo-ngon-tuyet-dinh.jpg?v=1712213789', '2024-01-01'), " +
+                        "(14, 'Phở bòa', 'Phở bòa hấp dẫn, thua xa nội thành và các quán khác', 3, 1, 'https://fohlafood.vn/cdn/shop/articles/bi-quyet-nau-phi-bo-ngon-tuyet-dinh.jpg?v=1712213789', '2024-01-01'), " +
                         "(15, 'Bún mọc', 'Bún Huế hấp dẫn, ăn không hấp dẫn', 3, 1, 'https://beptruong.edu.vn/wp-content/uploads/2019/06/bun-suon-moc.jpg', '2024-01-01'), " +
                         "(16, 'Bún cá', 'Bún cá siêu giòn, bún giòn cá dai', 3, 1, 'https://cdn.eva.vn/upload/4-2023/images/2023-10-27/cach-nau-bun-ca-ngon-chuan-vi-ha-noi-khong-tanh-bun-ca-eva-001-1698392675-405-width691height530.jpg', '2024-01-01'), " +
                         "(17, 'Cơm', 'Cơm dở canh ngon', 1, 2, 'https://comvangfood.com/upload/product/m12-5842.jpg', '2024-01-01'), " +
-                        "(18, 'Cơm', 'Cơm ngon canh là nước muối pha????', 1, 3, 'https://dogifood.vn/Images/news/2110221018-com-van-phong-30k.webp', '2024-01-01');");
+                        "(18, 'Cơm', 'Cơm ngon canh là nước muối pha????', 1, 3, 'https://dogifood.vn/Images/news/2110221018-com-van-phong-30k.webp', '2024-01-01'), " +
+                        "(19, 'Bánh bao', 'Bánh bao siu hót', 6, 1, 'https://thophat.com/wp-content/uploads/2022/03/BB-Chay-400g-1.jpg', '2024-01-01'), " +
+                        "(20, 'Bánh bao xá xíu', 'Siu hót kèm xá xíu', 6, 1, 'https://thophat.com/wp-content/uploads/2022/03/BB-Xa-Xiu-1.jpg', '2024-01-01'), " +
+                        "(21, 'Bánh bao hoàng kim', 'Siu hót nhưng màu vàng', 6, 1, 'https://abby.vn/wp-content/uploads/2016/11/cach-lam-banh-bao-kim-sa.jpg?fbclid=IwY2xjawHGmllleHRuA2FlbQIxMAABHRwIlEwFgsRSnNI7yPabcjPygP4cDf1RreS2_9KHJEekAT0-XIaFUurJIQ_aem_a6kFNGjtyCeaAXhUV6IFbQ', '2024-01-01'), " +
+                        "(22, 'Trà xanh 0 độ', 'Trà xanh 0 độ 25 độ', 5, 1, 'https://asianoeki.com/cdn/shop/products/New-8936193070013.jpg?v=1666086985', '2024-01-01'), " +
+                        "(23, 'Bún chả', 'Bún thịt nướng ăn chán vô cùng', 3, 3, 'https://thammyvienngocdung.com/wp-content/uploads/2024/02/bun-cha-cham-bao-nhieu-calo.jpg', '2024-01-01'), " +
+                        "(24, 'Phở gà', 'Phở gà không ngon lắm', 3, 2, 'https://cdn.buffetposeidon.com/app/media/uploaded-files/200823-cach-lam-pho-ga-buffet-poseidon.1.jpg', '2024-01-01');");
 
                 db.execSQL("INSERT INTO FoodPrices (PriceID, FoodID, Price) VALUES " +
                         "(1, 1, 5000), " +
@@ -128,7 +134,13 @@ public abstract class CanteenRunnerDatabase extends RoomDatabase {
                         "(21, 17, 40000), " +
                         "(22, 18, 40000), " +
                         "(23, 17, 45000), " +
-                        "(24, 18, 45000);");
+                        "(24, 18, 45000), " +
+                        "(23, 19, 10000), " +
+                        "(23, 20, 15000), " +
+                        "(23, 21, 15000), " +
+                        "(23, 22, 10000), " +
+                        "(23, 23, 35000), " +
+                        "(24, 24, 35000);");
 
                 db.execSQL("INSERT INTO Ticket (TicketID, TicketPrice, CanteenID) VALUES " +
                         "(1, 5000, 2), " +
